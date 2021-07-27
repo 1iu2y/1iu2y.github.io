@@ -1,0 +1,15 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Pwn - 标签 - zyleo&#39;s blog</title>
+        <link>https://1iu2y.github.io/tags/pwn/</link>
+        <description>Pwn - 标签 - zyleo&#39;s blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1872405512@qq.com (zyleo)</managingEditor>
+            <webMaster>1872405512@qq.com (zyleo)</webMaster><lastBuildDate>Sat, 27 Mar 2021 21:21:02 &#43;0000</lastBuildDate><atom:link href="https://1iu2y.github.io/tags/pwn/" rel="self" type="application/rss+xml" /><item>
+    <title>Pwn--利用格式化字符串漏洞覆盖指定地址内存</title>
+    <link>https://1iu2y.github.io/posts/2021-03-27-pwn-%E5%88%A9%E7%94%A8%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%BC%8F%E6%B4%9E%E8%A6%86%E7%9B%96%E6%8C%87%E5%AE%9A%E5%9C%B0%E5%9D%80%E5%86%85%E5%AD%98/</link>
+    <pubDate>Sat, 27 Mar 2021 21:21:02 &#43;0000</pubDate>
+    <author>作者</author>
+    <guid>https://1iu2y.github.io/posts/2021-03-27-pwn-%E5%88%A9%E7%94%A8%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%BC%8F%E6%B4%9E%E8%A6%86%E7%9B%96%E6%8C%87%E5%AE%9A%E5%9C%B0%E5%9D%80%E5%86%85%E5%AD%98/</guid>
+    <description><![CDATA[这里暂时还没有什么内容]]></description>
+</item></channel>
+</rss>

