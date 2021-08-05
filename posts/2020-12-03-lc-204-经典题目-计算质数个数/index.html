@@ -9,8 +9,8 @@
 <meta property="og:description" content="经典数学题，计算小于n的质数的个数 统计所有小于非负整数 n 的质数的数量。 示例 1： 输入：n = 10 输出：4 解释：小于 10 的质数一共有 4 个, 它们是 2, 3, 5," />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://1iu2y.github.io/posts/2020-12-03-lc-204-%E7%BB%8F%E5%85%B8%E9%A2%98%E7%9B%AE-%E8%AE%A1%E7%AE%97%E8%B4%A8%E6%95%B0%E4%B8%AA%E6%95%B0/" /><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2020-12-03T10:24:50&#43;00:00" />
-<meta property="article:modified_time" content="2020-12-03T10:24:50&#43;00:00" />
+<meta property="article:published_time" content="2020-12-03T10:24:50+00:00" />
+<meta property="article:modified_time" content="2020-12-03T10:24:50+00:00" />
 
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Lc 204 经典题目-计算质数个数"/>
@@ -144,7 +144,7 @@
 <p>这种方法由希腊数学家厄拉多塞（Eratosthenes）提出，思路是遍历到一个质数$x$后，将其倍数$2\times x$、$3\times x$、$4\times x$&hellip;都标记为合数，这样利用了数与数之间的关联性，减少了很多没必要的判断质数操作。进一步优化其时间复杂度，可以发现，不用从$2\times x$开始，因为这样会对一个合数进行多次重复标记（比如$15 = 3\times 5$），在计算3时会乘以5，而计算5时又会乘以3。所以可以从$x\times x$开始标记。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -163,20 +163,20 @@
 </span><span class="lnt">17
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-python" data-lang="python"><span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
     <span class="k">def</span> <span class="nf">countPrimes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
         <span class="s1">&#39;&#39;&#39;
 </span><span class="s1">        埃氏筛选法
 </span><span class="s1">        &#39;&#39;&#39;</span>
-        <span class="n">isPrime</span> <span class="o">=</span> <span class="p">[</span><span class="bp">True</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)]</span>
+        <span class="n">isPrime</span> <span class="o">=</span> <span class="p">[</span><span class="kc">True</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)]</span>
         <span class="n">res</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
             <span class="k">if</span> <span class="n">isPrime</span><span class="p">[</span><span class="n">j</span><span class="p">]:</span>
                 <span class="n">res</span> <span class="o">+=</span> <span class="mi">1</span>
-                <span class="k">print</span><span class="p">(</span><span class="n">j</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="n">j</span><span class="p">)</span>
                 <span class="n">tmp</span> <span class="o">=</span> <span class="n">j</span> <span class="o">*</span> <span class="n">j</span>
                 <span class="k">while</span> <span class="n">tmp</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">:</span>
-                    <span class="n">isPrime</span><span class="p">[</span><span class="n">tmp</span><span class="p">]</span> <span class="o">=</span> <span class="bp">False</span>
+                    <span class="n">isPrime</span><span class="p">[</span><span class="n">tmp</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
                     <span class="n">tmp</span> <span class="o">+=</span> <span class="n">j</span>
         
         <span class="k">return</span> <span class="n">res</span>
@@ -187,7 +187,7 @@
 <p>因为假如$x \equiv 0 \pmod {P_i}$，然后再往后标记，即将$x \times P_{i+1}$标记为合数，那么因为$\frac{x}{P_i} \times P_{i+1} &gt; x$，所以在后面遍历到$\frac{x}{P_i} \times P_{i+1}$这个数时，将其乘以$P_{i}$就会把$x \times P_{i+1}$标记为合数，与之前的操作重复，所以我们应该把到此停止，把$x \times P_{i+1}$这个数留给后面的大于$x$的数去标记。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -207,19 +207,19 @@
 </span><span class="lnt">18
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-python" data-lang="python"><span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
     <span class="k">def</span> <span class="nf">countPrimes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
         <span class="s1">&#39;&#39;&#39;
 </span><span class="s1">        线性筛选法
 </span><span class="s1">        &#39;&#39;&#39;</span>
         <span class="n">primes</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="n">isPrime</span> <span class="o">=</span> <span class="p">[</span><span class="bp">True</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)]</span>
+        <span class="n">isPrime</span> <span class="o">=</span> <span class="p">[</span><span class="kc">True</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)]</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
             <span class="k">if</span> <span class="n">isPrime</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
                 <span class="n">primes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
             <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span>
             <span class="k">while</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">primes</span><span class="p">)</span> <span class="ow">and</span> <span class="n">i</span> <span class="o">*</span> <span class="n">primes</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">:</span>
-                <span class="n">isPrime</span><span class="p">[</span><span class="n">i</span> <span class="o">*</span> <span class="n">primes</span><span class="p">[</span><span class="n">j</span><span class="p">]]</span> <span class="o">=</span> <span class="bp">False</span>
+                <span class="n">isPrime</span><span class="p">[</span><span class="n">i</span> <span class="o">*</span> <span class="n">primes</span><span class="p">[</span><span class="n">j</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">False</span>
                 <span class="k">if</span> <span class="n">i</span> <span class="o">%</span> <span class="n">primes</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
                     <span class="k">break</span>                
                 <span class="n">j</span> <span class="o">+=</span> <span class="mi">1</span>
@@ -260,7 +260,7 @@
                 Please enable JavaScript to view the comments powered by <a href="https://disqus.com/?ref_noscript">Disqus</a>.
             </noscript></div></article></div>
             </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.83.1">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.87.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
                 </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2020 - 2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/liuliuliuzy" target="_blank">zyleo</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div>
     </footer></div>

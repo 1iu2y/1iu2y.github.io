@@ -12,6 +12,13 @@
     <guid>https://1iu2y.github.io/posts/2021-06-24-win10govscode%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/</guid>
     <description><![CDATA[<p>其实就是想记录一下正确设置<code>GOPROXY</code>的命令</p>]]></description>
 </item><item>
+    <title>Win10&#43;go&#43;vscode 环境配置</title>
+    <link>https://1iu2y.github.io/posts/2021-0624-win10govscode%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/</link>
+    <pubDate>Thu, 24 Jun 2021 16:27:10 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://1iu2y.github.io/posts/2021-0624-win10govscode%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/</guid>
+    <description><![CDATA[<p>其实就是想记录一下正确设置<code>GOPROXY</code>的命令</p>]]></description>
+</item><item>
     <title>windows10&#43;wsl2&#43;VsCode配置go开发环境</title>
     <link>https://1iu2y.github.io/posts/2021-04-04-windows10-wsl2-vscode%E9%85%8D%E7%BD%AEgo%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/</link>
     <pubDate>Sun, 04 Apr 2021 19:22:41 &#43;0000</pubDate>

