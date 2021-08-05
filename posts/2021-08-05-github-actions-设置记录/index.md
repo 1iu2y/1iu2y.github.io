@@ -71,4 +71,15 @@ jobs:
 
 ### It works!
 
+![image-20210805143049479](image-20210805143049479.png "action成功执行")
+
+![image-20210805143127899](image-20210805143127899.png "另一个仓库被成功修改")
+
+
+
+{{< admonition tip >}}
+
+除去`personal_token`之外，还可以使用`public_key`的方式进行action部署，有待尝试
+
+{{< /admonition >}}
 
