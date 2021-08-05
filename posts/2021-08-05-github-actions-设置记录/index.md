@@ -66,7 +66,7 @@ jobs:
           external_repository: 1iu2y/1iu2y.github.io # Pages 远程仓库 
           publish_dir: "./public"
           keep_files: false # remove existing files
-          publish_branch: master  # deploying branch
+          publish_branch: master  # deploying branch，对应于1iu2y.github.io仓库的branch，该仓库的默认分支是master，所以我这里也定义为了master
           commit_message: ${{ github.event.head_commit.message }} #commit_message: ${{ github.event.head_commit.message }}
 ```
 
