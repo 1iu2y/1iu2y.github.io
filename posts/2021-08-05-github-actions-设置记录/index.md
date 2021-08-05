@@ -31,6 +31,7 @@
 
 ### 添加github action
 
+添加`.github/workflows/xxx.yml`文件，创建github action。
 ```yaml
 name: github pages
 
@@ -83,3 +84,20 @@ jobs:
 
 {{< /admonition >}}
 
+
+如果使用deploy_key的话，将yml文件对应内容进行修改。这种方式的好处在于密钥不会过期。
+
+```yaml
+        with:
+          # personal_token: ${{ secrets.ACTIONS_ACCESS_TOKEN }} # 这里的 ACTIONS_DEPLOY_KEY 则是上面设置 Private Key的变量名
+          deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
+          external_repository: 1iu2y/1iu2y.github.io # Pages 远程仓库 
+          publish_dir: "./public"
+          keep_files: false # remove existing files
+          publish_branch: master  # deploying branch
+          commit_message: ${{ github.event.head_commit.message }} #commit_message: ${{ github.event.head_commit.message }}
+```
+
+### 参考链接：
+
+- [https://zhuanlan.zhihu.com/p/109057290](https://zhuanlan.zhihu.com/p/109057290)

@@ -27,7 +27,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/1iu2y.github.io\/posts\/2021-08-05-github-actions-%E8%AE%BE%E7%BD%AE%E8%AE%B0%E5%BD%95\/"
-        },"genre": "posts","keywords": "github, github actions","wordcount":  818 ,
+        },"genre": "posts","keywords": "github, github actions","wordcount":  982 ,
         "url": "https:\/\/1iu2y.github.io\/posts\/2021-08-05-github-actions-%E8%AE%BE%E7%BD%AE%E8%AE%B0%E5%BD%95\/","datePublished": "2021-08-05T11:26:04+08:00","dateModified": "2021-08-05T11:26:04+08:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
@@ -104,7 +104,7 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animated flipInX">Github Actions 设置记录</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://github.com/liuliuliuzy" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>zyleo</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/hugo/"><i class="far fa-folder fa-fw"></i>Hugo</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-08-05">2021-08-05</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 818 字&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-08-05">2021-08-05</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 982 字&nbsp;
                 <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 2 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  kept="">
                 <div class="details-summary toc-title">
@@ -119,6 +119,7 @@
         <li><a href="#生成personal_token">生成personal_token</a></li>
         <li><a href="#添加github-action">添加github action</a></li>
         <li><a href="#it-works">It works!</a></li>
+        <li><a href="#参考链接">参考链接：</a></li>
       </ul>
     </li>
   </ul>
@@ -164,6 +165,7 @@
     </figure></p>
 <p>记得过期之后再去创建一个，然后修改secret的内容。</p>
 <h3 id="添加github-action">添加github action</h3>
+<p>添加<code>.github/workflows/xxx.yml</code>文件，创建github action。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -269,6 +271,33 @@
             <div class="admonition-content">除去<code>personal_token</code>之外，还可以使用<code>public_key</code>的方式进行action部署，有待尝试。</div>
         </div>
     </div>
+<p>如果使用deploy_key的话，将yml文件对应内容进行修改。这种方式的好处在于密钥不会过期。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="w">        </span><span class="nt">with</span><span class="p">:</span><span class="w">
+</span><span class="w">          </span><span class="c"># personal_token: ${{ secrets.ACTIONS_ACCESS_TOKEN }} # 这里的 ACTIONS_DEPLOY_KEY 则是上面设置 Private Key的变量名</span><span class="w">
+</span><span class="w">          </span><span class="nt">deploy_key</span><span class="p">:</span><span class="w"> </span><span class="l">${{ secrets.ACTIONS_DEPLOY_KEY }}</span><span class="w">
+</span><span class="w">          </span><span class="nt">external_repository</span><span class="p">:</span><span class="w"> </span><span class="l">1iu2y/1iu2y.github.io</span><span class="w"> </span><span class="c"># Pages 远程仓库 </span><span class="w">
+</span><span class="w">          </span><span class="nt">publish_dir</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;./public&#34;</span><span class="w">
+</span><span class="w">          </span><span class="nt">keep_files</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w"> </span><span class="c"># remove existing files</span><span class="w">
+</span><span class="w">          </span><span class="nt">publish_branch</span><span class="p">:</span><span class="w"> </span><span class="l">master </span><span class="w"> </span><span class="c"># deploying branch</span><span class="w">
+</span><span class="w">          </span><span class="nt">commit_message</span><span class="p">:</span><span class="w"> </span><span class="l">${{ github.event.head_commit.message }}</span><span class="w"> </span><span class="c">#commit_message: ${{ github.event.head_commit.message }}</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><h3 id="参考链接">参考链接：</h3>
+<ul>
+<li><a href="https://zhuanlan.zhihu.com/p/109057290" target="_blank" rel="noopener noreffer">https://zhuanlan.zhihu.com/p/109057290</a></li>
+</ul>
 </div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
