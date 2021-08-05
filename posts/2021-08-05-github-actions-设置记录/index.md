@@ -79,7 +79,7 @@ jobs:
 
 {{< admonition tip >}}
 
-除去`personal_token`之外，还可以使用`public_key`的方式进行action部署，有待尝试
+除去`personal_token`之外，还可以使用`public_key`的方式进行action部署，有待尝试。
 
 {{< /admonition >}}
 
