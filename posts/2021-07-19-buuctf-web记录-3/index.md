@@ -188,4 +188,79 @@ class Config(object):
 - [Unicode Character Table](https://unicode-table.com/en/)
 - [客户端 session 导致的安全问题](https://www.leavesongs.com/PENETRATION/client-session-security.html)
 
+## 0x03 [BJDCTF2020]Easy MD5
+
+[题目链接](https://buuoj.cn/challenges#[BJDCTF2020]Easy%20MD5)
+
+一道考察php中的`md5()`用法的题。
+
+网站长这样
+
+![image-20210811221230795](image-20210811221230795.png "网站页面")
+
+### level1
+
+首先随便输入，抓包得到hint提示
+
+![image-20210811221151702](image-20210811221151702.png "hint提示")
+
+可以看到提交请求对应的语句为
+
+```php
+select * from 'admin' where password=md5($pass,true)
+```
+
+这里要注入的话就得使`md5($pass, true)`值为`' or 'xxx`，也就是要找个字符串使其md5结果满足这一要求。遍历可以爆出结果，但其实有经验的话就知道`"ffifdyop"`满足上述需求，是[md5注入时常用的字符串](https://www.cnblogs.com/tqing/p/11852990.html)，其md5结果为`' or '6xxxxx`。
+
+```python
+import hashlib
+s = "ffifdyop"
+m = hashlib.md5(s.encode()).hexdigest()
+print(m)
+
+plain = bytes.fromhex(m)
+print(plain)
+
+=================
+
+276f722736c95d99e921722cf9ed621c
+b"'or'6\xc9]\x99\xe9!r,\xf9\xedb\x1c"
+```
+
+放到上述语句就相当于
+
+```php 
+select * from 'admin' where password= '' or '6xxxxx'
+```
+
+### level2
+
+注入通过之后，到了第二关
+
+![image-20210811224151331](image-20210811224151331.png "Do You Like MD5?")
+
+又可以看到提示，要求`$a != $b` 但是`md5($a) == md5($b)`。
+
+![image-20210811224234490](image-20210811224234490.png "第二个提示")
+
+要满足前面的`!=`和后面的弱相等，存在两种情况：
+
+- `md5($a)`与`md5($b)`结果以`0e`开头。php在处理这样的哈希字符串时会将其当作科学计数法，并且底数为0，所以结果都为0
+- `$a`与`$b`为数组。`md5()`无法处理数组输入，所以会返回`null`，这种情况也满足上述条件
+
+具体内容可以参照[这篇博客](https://www.loongten.com/2020/02/22/ctf-php-md5/)
+
+所以，直接选两个不同的但是md5结果都以`0e`开头的字符串作为a b的值即可。
+
+![image-20210812193547427](image-20210812193547427.png "hackbar")
+
+### level3
+
+第三关要求`$_POST['param1']!==$_POST['param2']&&md5($_POST['param1'])===md5($_POST['param2'])`
+
+这里传入数组就可。除此之外，还可以找两个不同的但是md5结果相同的字符串，这理论上来说是存在的，但是我目前还没有查到现有的结果。![image-20210812194016086](image-20210812194016086.png "hackbar发送Post请求")
+
+### 参考链接：
+
+- [CTF中常见php-MD5()函数漏洞](https://www.loongten.com/2020/02/22/ctf-php-md5/)
 

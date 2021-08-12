@@ -27,7 +27,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/1iu2y.github.io\/posts\/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3\/"
-        },"genre": "posts","keywords": "CTF, web","wordcount":  2085 ,
+        },"genre": "posts","keywords": "CTF, web","wordcount":  2914 ,
         "url": "https:\/\/1iu2y.github.io\/posts\/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3\/","datePublished": "2021-07-19T17:02:23+08:00","dateModified": "2021-07-19T17:02:23+08:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
@@ -104,8 +104,8 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animated flipInX">BUUCTF web记录3</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://github.com/liuliuliuzy" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>zyleo</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/ctf/"><i class="far fa-folder fa-fw"></i>CTF</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-07-19">2021-07-19</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2085 字&nbsp;
-                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 5 分钟&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-07-19">2021-07-19</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2914 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 6 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  kept="">
                 <div class="details-summary toc-title">
                     <span>目录</span>
@@ -129,6 +129,14 @@
         <li><a href="#解法2unicode欺骗">解法2：unicode欺骗</a></li>
         <li><a href="#解法3-修改flask-session">解法3： 修改flask session</a></li>
         <li><a href="#参考链接-2">参考链接：</a></li>
+      </ul>
+    </li>
+    <li><a href="#0x03-bjdctf2020easy-md5">0x03 [BJDCTF2020]Easy MD5</a>
+      <ul>
+        <li><a href="#level1">level1</a></li>
+        <li><a href="#level2">level2</a></li>
+        <li><a href="#level3">level3</a></li>
+        <li><a href="#参考链接-3">参考链接：</a></li>
       </ul>
     </li>
   </ul>
@@ -457,6 +465,137 @@ Your password is &#39;flag{b11bfeba-d864-4a0a-97f6-77e3ef266da9}&#39;
 <li>
 <p><a href="https://www.leavesongs.com/PENETRATION/client-session-security.html" target="_blank" rel="noopener noreffer">客户端 session 导致的安全问题</a></p>
 </li>
+</ul>
+<h2 id="0x03-bjdctf2020easy-md5">0x03 [BJDCTF2020]Easy MD5</h2>
+<p><a href="https://buuoj.cn/challenges#[BJDCTF2020]Easy%20MD5" target="_blank" rel="noopener noreffer">题目链接</a></p>
+<p>一道考察php中的<code>md5()</code>用法的题。</p>
+<p>网站长这样</p>
+<p><figure><a class="lightgallery" href="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210811221230795.png" title="image-20210811221230795" data-thumbnail="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210811221230795.png" data-sub-html="<h2>网站页面</h2><p>image-20210811221230795</p>">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="image-20210811221230795.png"
+            data-srcset="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210811221230795.png, image-20210811221230795.png 1.5x, /posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210811221230795.png 2x"
+            data-sizes="auto"
+            alt="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210811221230795.png" />
+    </a><figcaption class="image-caption">网站页面</figcaption>
+    </figure></p>
+<h3 id="level1">level1</h3>
+<p>首先随便输入，抓包得到hint提示</p>
+<p><figure><a class="lightgallery" href="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210811221151702.png" title="image-20210811221151702" data-thumbnail="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210811221151702.png" data-sub-html="<h2>hint提示</h2><p>image-20210811221151702</p>">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="image-20210811221151702.png"
+            data-srcset="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210811221151702.png, image-20210811221151702.png 1.5x, /posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210811221151702.png 2x"
+            data-sizes="auto"
+            alt="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210811221151702.png" />
+    </a><figcaption class="image-caption">hint提示</figcaption>
+    </figure></p>
+<p>可以看到提交请求对应的语句为</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="nx">select</span> <span class="o">*</span> <span class="nx">from</span> <span class="s1">&#39;admin&#39;</span> <span class="nx">where</span> <span class="nx">password</span><span class="o">=</span><span class="nx">md5</span><span class="p">(</span><span class="nv">$pass</span><span class="p">,</span><span class="k">true</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>这里要注入的话就得使<code>md5($pass, true)</code>值为<code>' or 'xxx</code>，也就是要找个字符串使其md5结果满足这一要求。遍历可以爆出结果，但其实有经验的话就知道<code>&quot;ffifdyop&quot;</code>满足上述需求，是<a href="https://www.cnblogs.com/tqing/p/11852990.html" target="_blank" rel="noopener noreffer">md5注入时常用的字符串</a>，其md5结果为<code>' or '6xxxxx</code>。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">hashlib</span>
+<span class="n">s</span> <span class="o">=</span> <span class="s2">&#34;ffifdyop&#34;</span>
+<span class="n">m</span> <span class="o">=</span> <span class="n">hashlib</span><span class="o">.</span><span class="n">md5</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+
+<span class="n">plain</span> <span class="o">=</span> <span class="nb">bytes</span><span class="o">.</span><span class="n">fromhex</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">plain</span><span class="p">)</span>
+
+<span class="o">=================</span>
+
+<span class="mi">276</span><span class="n">f722736c95d99e921722cf9ed621c</span>
+<span class="sa">b</span><span class="s2">&#34;&#39;or&#39;6</span><span class="se">\xc9</span><span class="s2">]</span><span class="se">\x99\xe9</span><span class="s2">!r,</span><span class="se">\xf9\xed</span><span class="s2">b</span><span class="se">\x1c</span><span class="s2">&#34;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>放到上述语句就相当于</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="nx">select</span> <span class="o">*</span> <span class="nx">from</span> <span class="s1">&#39;admin&#39;</span> <span class="nx">where</span> <span class="nx">password</span><span class="o">=</span> <span class="s1">&#39;&#39;</span> <span class="k">or</span> <span class="s1">&#39;6xxxxx&#39;</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="level2">level2</h3>
+<p>注入通过之后，到了第二关</p>
+<p><figure><a class="lightgallery" href="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210811224151331.png" title="image-20210811224151331" data-thumbnail="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210811224151331.png" data-sub-html="<h2>Do You Like MD5?</h2><p>image-20210811224151331</p>">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="image-20210811224151331.png"
+            data-srcset="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210811224151331.png, image-20210811224151331.png 1.5x, /posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210811224151331.png 2x"
+            data-sizes="auto"
+            alt="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210811224151331.png" />
+    </a><figcaption class="image-caption">Do You Like MD5?</figcaption>
+    </figure></p>
+<p>又可以看到提示，要求<code>$a != $b</code> 但是<code>md5($a) == md5($b)</code>。</p>
+<p><figure><a class="lightgallery" href="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210811224234490.png" title="image-20210811224234490" data-thumbnail="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210811224234490.png" data-sub-html="<h2>第二个提示</h2><p>image-20210811224234490</p>">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="image-20210811224234490.png"
+            data-srcset="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210811224234490.png, image-20210811224234490.png 1.5x, /posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210811224234490.png 2x"
+            data-sizes="auto"
+            alt="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210811224234490.png" />
+    </a><figcaption class="image-caption">第二个提示</figcaption>
+    </figure></p>
+<p>要满足前面的<code>!=</code>和后面的弱相等，存在两种情况：</p>
+<ul>
+<li><code>md5($a)</code>与<code>md5($b)</code>结果以<code>0e</code>开头。php在处理这样的哈希字符串时会将其当作科学计数法，并且底数为0，所以结果都为0</li>
+<li><code>$a</code>与<code>$b</code>为数组。<code>md5()</code>无法处理数组输入，所以会返回<code>null</code>，这种情况也满足上述条件</li>
+</ul>
+<p>具体内容可以参照<a href="https://www.loongten.com/2020/02/22/ctf-php-md5/" target="_blank" rel="noopener noreffer">这篇博客</a></p>
+<p>所以，直接选两个不同的但是md5结果都以<code>0e</code>开头的字符串作为a b的值即可。</p>
+<p><figure><a class="lightgallery" href="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210812193547427.png" title="image-20210812193547427" data-thumbnail="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210812193547427.png" data-sub-html="<h2>hackbar</h2><p>image-20210812193547427</p>">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="image-20210812193547427.png"
+            data-srcset="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210812193547427.png, image-20210812193547427.png 1.5x, /posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210812193547427.png 2x"
+            data-sizes="auto"
+            alt="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210812193547427.png" />
+    </a><figcaption class="image-caption">hackbar</figcaption>
+    </figure></p>
+<h3 id="level3">level3</h3>
+<p>第三关要求<code>$_POST['param1']!==$_POST['param2']&amp;&amp;md5($_POST['param1'])===md5($_POST['param2'])</code></p>
+<p>这里传入数组就可。除此之外，还可以找两个不同的但是md5结果相同的字符串，这理论上来说是存在的，但是我目前还没有查到现有的结果。<figure><a class="lightgallery" href="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210812194016086.png" title="image-20210812194016086" data-thumbnail="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210812194016086.png" data-sub-html="<h2>hackbar发送Post请求</h2><p>image-20210812194016086</p>">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="image-20210812194016086.png"
+            data-srcset="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210812194016086.png, image-20210812194016086.png 1.5x, /posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210812194016086.png 2x"
+            data-sizes="auto"
+            alt="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210812194016086.png" />
+    </a><figcaption class="image-caption">hackbar发送Post请求</figcaption>
+    </figure></p>
+<h3 id="参考链接-3">参考链接：</h3>
+<ul>
+<li><a href="https://www.loongten.com/2020/02/22/ctf-php-md5/" target="_blank" rel="noopener noreffer">CTF中常见php-MD5()函数漏洞</a></li>
 </ul>
 </div><div class="post-footer" id="post-footer">
     <div class="post-info">
