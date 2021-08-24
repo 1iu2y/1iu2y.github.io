@@ -1,4 +1,4 @@
-# BUUCTF web记录3
+# BUUCTF web记录 3
 
 
 ## 0x00 [极客大挑战 2019]BabySQL
@@ -557,5 +557,45 @@ GIF89a
 
 - [htaccess文件上传拿shell](https://blog.csdn.net/qq_36512966/article/details/72716079?utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromMachineLearnPai2%7Edefault-1.control&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromMachineLearnPai2%7Edefault-1.control)
 - [user.ini文件构成的PHP后门](https://wooyun.js.org/drops/user.ini%E6%96%87%E4%BB%B6%E6%9E%84%E6%88%90%E7%9A%84PHP%E5%90%8E%E9%97%A8.html)
+
+## 0x07 [GXYCTF2019]BabySQli
+
+[题目链接](https://buuoj.cn/challenges#[GXYCTF2019]BabySQli)
+
+这题两个输入框，试一下就可以发现，注入点是`UserName`。
+
+![image-20210824184531150](image-20210824184531150.png)
+
+`UserName`试了一下`a' or 1=1#`，页面返回`Do not hack me`，说明被过滤了。
+
+再试`a' union select 1,2#`，返回`Error: The used SELECT statements have a different number of columns`。说明sql语句的查询结果不止2列，可以尝试出来是3列。
+
+同时，用户名输`admin`，返回的是`wrong pass`，用户名输其他的返回的是`wrong user`，说明这题要满足的条件是用户名`UserName`为`admin`。同时`a' union select 1,'admin',3#`报的是`wrong pass`，说明username在查询结果的第二列。
+
+查看网页源码，发现有`search.php`的提示信息，查看`search.php`，可以看到
+
+```html
+<!--MMZFM422K5HDASKDN5TVU3SKOZRFGQRRMMZFM6KJJBSG6WSYJJWESSCWPJNFQSTVLFLTC3CJIQYGOSTZKJ2VSVZRNRFHOPJ5-->
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+<title>Do you know who am I?</title>
+
+
+
+wrong user!
+```
+
+上面的是base32编码，解码得到`c2VsZWN0ICogZnJvbSB1c2VyIHdoZXJlIHVzZXJuYW1lID0gJyRuYW1lJw==`，再经过base64解码得到该网站的sql查询语句`select * from user where username = '$name'`。
+
+查询语句里没有密码字段，所以可以推测，密码字段应该是在后端被拿来对比了。同时再猜测（😂好吧其实是查阅博客，但是这些博客也没哪个讲清除了）是将我们的输入的值的md5与密码的md5结果相对比。
+
+猜到这里就可以做了。使用`union`联合查询构造查询结果，就可以自己控制md5内容，然后再输入对应的密码内容即可。
+
+payload：
+
+`a' union select 1, 'admin', '900150983cd24fb0d6963f7d28e17f72'#`
+
+`abc`
+
+> flag{35de0117-ce39-40bd-8de4-40535e1a5274}
 
 

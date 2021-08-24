@@ -4,9 +4,16 @@
         <link>https://1iu2y.github.io/</link>
         <description>zyleo&#39;s blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1872405512@qq.com (zyleo)</managingEditor>
-            <webMaster>1872405512@qq.com (zyleo)</webMaster><lastBuildDate>Thu, 05 Aug 2021 11:26:04 &#43;0800</lastBuildDate>
+            <webMaster>1872405512@qq.com (zyleo)</webMaster><lastBuildDate>Tue, 24 Aug 2021 19:10:31 &#43;0800</lastBuildDate>
             <atom:link href="https://1iu2y.github.io/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>BUUCTF Web记录 4</title>
+    <link>https://1iu2y.github.io/posts/2021-08-24-buuctf-web%E8%AE%B0%E5%BD%95-4/</link>
+    <pubDate>Tue, 24 Aug 2021 19:10:31 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://1iu2y.github.io/posts/2021-08-24-buuctf-web%E8%AE%B0%E5%BD%95-4/</guid>
+    <description><![CDATA[<p>已经到第4篇了，不容易啊</p>]]></description>
+</item><item>
     <title>Github Actions 设置记录</title>
     <link>https://1iu2y.github.io/posts/2021-08-05-github-actions-%E8%AE%BE%E7%BD%AE%E8%AE%B0%E5%BD%95/</link>
     <pubDate>Thu, 05 Aug 2021 11:26:04 &#43;0800</pubDate>
@@ -14,7 +21,7 @@
     <guid>https://1iu2y.github.io/posts/2021-08-05-github-actions-%E8%AE%BE%E7%BD%AE%E8%AE%B0%E5%BD%95/</guid>
     <description><![CDATA[众所周知，hugo的github page部署有两种方式，分别是手动部署与github actions部署。 手动部署就是手动将生成的public]]></description>
 </item><item>
-    <title>BUUCTF web记录3</title>
+    <title>BUUCTF web记录 3</title>
     <link>https://1iu2y.github.io/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/</link>
     <pubDate>Mon, 19 Jul 2021 17:02:23 &#43;0800</pubDate>
     <author>作者</author>
@@ -69,12 +76,5 @@
     <author>作者</author>
     <guid>https://1iu2y.github.io/posts/2021-04-05-golang-notes/</guid>
     <description><![CDATA[Go的package管理与GOPATH与go modules 关于GOPATH的作用 http://c.biancheng.net/view/88.html 关于go 1.11之后引入的go mudules机制 https://geektutu.com/post/quick-golang.html#9-%E5%8C%85-Package-%E5%92%8C%E6%A8%A1%E5%9D%97-Modules 上述两个链接中的内容]]></description>
-</item><item>
-    <title>windows10&#43;wsl2&#43;VsCode配置go开发环境</title>
-    <link>https://1iu2y.github.io/posts/2021-04-04-windows10-wsl2-vscode%E9%85%8D%E7%BD%AEgo%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/</link>
-    <pubDate>Sun, 04 Apr 2021 19:22:41 &#43;0000</pubDate>
-    <author>作者</author>
-    <guid>https://1iu2y.github.io/posts/2021-04-04-windows10-wsl2-vscode%E9%85%8D%E7%BD%AEgo%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/</guid>
-    <description><![CDATA[前提条件： windows10 安装好的wsl2（我的linux版本是ubuntu20.04) vscode 0x00 在wsl2中安装go 去官网下载最新的go文件包，然后解压安装到]]></description>
 </item></channel>
 </rss>
