@@ -316,4 +316,32 @@ array(1) {
 
 - [i春秋2020新春公益赛 GYCTF有关SQL注入题复现](https://qwzf.github.io/2020/05/02/i%E6%98%A5%E7%A7%8B2020%E6%96%B0%E6%98%A5%E5%85%AC%E7%9B%8A%E8%B5%9B%20GYCTF%E6%9C%89%E5%85%B3SQL%E6%B3%A8%E5%85%A5%E9%A2%98%E5%A4%8D%E7%8E%B0/)
 
+## 0x04 [GXYCTF2019]BabyUpload
+
+文件上传，过滤了后缀名包含`ph`的文件。那最直接的思路就是上传图片马，然后再上传`.htaccess`或者`.user.ini`控制服务端将图片作为php解析。
+
+随便访问一个不存在的目录，可以看到服务端用的是apache。
+
+> # Not Found
+>
+> The requested URL /test was not found on this server.
+>
+> ------
+>
+> Apache/2.4.10 (Debian) Server at 5d755b3b-244b-42ae-b90c-2c9b6a481f76.node4.buuoj.cn Port 80
+
+所以我们尝试上传`.htaccess`
+
+```
+<FilesMatch "leo.jpg">
+SetHandler application/x-httpd-php
+</FilesMatch>
+```
+
+直接上传当然是不行的啦，得拦截然后修改为`Content-Type: image/jpeg`。然后常规操作，上传图片马再连接即可。
+
+这里比较搞的一点是，我尝试了`Content-Type: image/jpg`和`Content-Type: image/png`，发现都不行，还以为这题又是一种新的绕过方式。再看了别人博客之后才发现，原来就是个`jpeg`的问题...
+
+最后，关于`jpeg/jpg`/`png`/`bmp`/`gif`这些常见的图片文件头部结构，可以上[wikipedia](https://en.wikipedia.org/wiki/Main_Page)查看。
+
 
