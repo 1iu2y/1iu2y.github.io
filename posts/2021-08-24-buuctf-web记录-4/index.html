@@ -33,7 +33,7 @@
                             "url": "https:\/\/1iu2y.github.io\/posts\/2021-08-24-buuctf-web%E8%AE%B0%E5%BD%95-4\/featured-image.png",
                             "width":  1975 ,
                             "height":  910 
-                        }],"genre": "posts","keywords": "CTF, web","wordcount":  2988 ,
+                        }],"genre": "posts","keywords": "CTF, web","wordcount":  3029 ,
         "url": "https:\/\/1iu2y.github.io\/posts\/2021-08-24-buuctf-web%E8%AE%B0%E5%BD%95-4\/","datePublished": "2021-08-24T19:10:31+08:00","dateModified": "2021-08-24T00:00:00+00:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
@@ -110,8 +110,8 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animated flipInX">BUUCTF Web记录 4</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://github.com/liuliuliuzy" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>zyleo</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/ctf/"><i class="far fa-folder fa-fw"></i>CTF</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-08-24">2021-08-24</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2988 字&nbsp;
-                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 6 分钟&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-08-24">2021-08-24</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 3029 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 7 分钟&nbsp;</div>
         </div><div class="featured-image"><img
         class="lazyload"
         src="/svg/loading.min.svg"
@@ -143,6 +143,10 @@
       </ul>
     </li>
     <li><a href="#0x04-gxyctf2019babyupload">0x04 [GXYCTF2019]BabyUpload</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#0x05-buuctf-2018online-tool">0x05 [BUUCTF 2018]Online Tool</a></li>
   </ul>
 </nav></div>
             </div><div class="content" id="content"><p>已经到第4篇了，不容易啊</p>
@@ -685,7 +689,10 @@ SetHandler application/x-httpd-php
 </div>
 </div><p>直接上传当然是不行的啦，得拦截然后修改为<code>Content-Type: image/jpeg</code>。然后常规操作，上传图片马再连接即可。</p>
 <p>这里比较搞的一点是，我尝试了<code>Content-Type: image/jpg</code>和<code>Content-Type: image/png</code>，发现都不行，还以为这题又是一种新的绕过方式。再看了别人博客之后才发现，原来就是个<code>jpeg</code>的问题&hellip;</p>
-<p>最后，关于<code>jpeg/jpg</code>/<code>png</code>/<code>bmp</code>/<code>gif</code>这些常见的图片文件头部结构，可以上<a href="https://en.wikipedia.org/wiki/Main_Page" target="_blank" rel="noopener noreffer">wikipedia</a>查看。</p></div><div class="post-footer" id="post-footer">
+<p>最后，关于<code>jpeg/jpg</code>/<code>png</code>/<code>bmp</code>/<code>gif</code>这些常见的图片文件头部结构，可以上<a href="https://en.wikipedia.org/wiki/Main_Page" target="_blank" rel="noopener noreffer">wikipedia</a>查看。</p>
+<h2 id="0x05-buuctf-2018online-tool">0x05 [BUUCTF 2018]Online Tool</h2>
+<p>php rce的题，这种类型的没学过啊，不会😣</p>
+<p>搁置一下，做道Pwn换换脑子🌚去。</p></div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">

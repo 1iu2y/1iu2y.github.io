@@ -344,4 +344,10 @@ SetHandler application/x-httpd-php
 
 最后，关于`jpeg/jpg`/`png`/`bmp`/`gif`这些常见的图片文件头部结构，可以上[wikipedia](https://en.wikipedia.org/wiki/Main_Page)查看。
 
+##  0x05 [BUUCTF 2018]Online Tool
+
+php rce的题，这种类型的没学过啊，不会:persevere:
+
+搁置一下，做道Pwn换换脑子🌚去。
+
 
