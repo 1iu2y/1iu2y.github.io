@@ -4,7 +4,14 @@
         <link>https://1iu2y.github.io/posts/</link>
         <description>所有文章 | zyleo&#39;s blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1872405512@qq.com (zyleo)</managingEditor>
-            <webMaster>1872405512@qq.com (zyleo)</webMaster><lastBuildDate>Thu, 26 Aug 2021 17:43:20 &#43;0800</lastBuildDate><atom:link href="https://1iu2y.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>1872405512@qq.com (zyleo)</webMaster><lastBuildDate>Fri, 27 Aug 2021 16:35:34 &#43;0800</lastBuildDate><atom:link href="https://1iu2y.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>Wsl迁移等操作记录</title>
+    <link>https://1iu2y.github.io/posts/2021-08-27-wsl%E8%BF%81%E7%A7%BB%E7%AD%89%E6%93%8D%E4%BD%9C%E8%AE%B0%E5%BD%95/</link>
+    <pubDate>Fri, 27 Aug 2021 16:35:34 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://1iu2y.github.io/posts/2021-08-27-wsl%E8%BF%81%E7%A7%BB%E7%AD%89%E6%93%8D%E4%BD%9C%E8%AE%B0%E5%BD%95/</guid>
+    <description><![CDATA[记录一下wsl迁移以及自选安装位置的一些操作。 打包 1 wsl --export distro_name file_name.tar 删除 1 wsl --unregister distro_name 导入（有看到博客说这里的distro_name需要与原本的disrt]]></description>
+</item><item>
     <title>记录一道ret2csu的pwn题</title>
     <link>https://1iu2y.github.io/posts/2021-08-26-%E8%AE%B0%E5%BD%95%E4%B8%80%E9%81%93ret2csu%E7%9A%84pwn%E9%A2%98/</link>
     <pubDate>Thu, 26 Aug 2021 17:43:20 &#43;0800</pubDate>
@@ -67,12 +74,5 @@
     <author>作者</author>
     <guid>https://1iu2y.github.io/posts/2021-04-27-docker-runc-cve-2019-5736-%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90-%E7%AC%AC%E4%BA%8C%E7%89%88/</guid>
     <description><![CDATA[漏洞背景 runc是一个根据OCI(Open Container Initiative)标准创建并运行容器的命令行工具，docker引擎也是基于runc构建的。2]]></description>
-</item><item>
-    <title>docker-runc(CVE-2019-5736)漏洞分析</title>
-    <link>https://1iu2y.github.io/posts/2021-04-20-runc%E6%BA%90%E7%A0%81%E5%B0%9D%E8%AF%95%E5%88%86%E6%9E%90%E4%B8%8Ecve-2019-5736%E6%BA%90%E7%A0%81%E5%B0%9D%E8%AF%95%E5%88%86%E6%9E%90/</link>
-    <pubDate>Tue, 20 Apr 2021 23:15:58 &#43;0000</pubDate>
-    <author>作者</author>
-    <guid>https://1iu2y.github.io/posts/2021-04-20-runc%E6%BA%90%E7%A0%81%E5%B0%9D%E8%AF%95%E5%88%86%E6%9E%90%E4%B8%8Ecve-2019-5736%E6%BA%90%E7%A0%81%E5%B0%9D%E8%AF%95%E5%88%86%E6%9E%90/</guid>
-    <description><![CDATA[runc: 1.0-rc93 0x00 docker-containerd-shim 调用runc components/cli/cli/command/container/exec.go中执行runExec() 1 2 3 4]]></description>
 </item></channel>
 </rss>
