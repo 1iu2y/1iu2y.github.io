@@ -4,7 +4,14 @@
         <link>https://1iu2y.github.io/posts/</link>
         <description>所有文章 | zyleo&#39;s blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1872405512@qq.com (zyleo)</managingEditor>
-            <webMaster>1872405512@qq.com (zyleo)</webMaster><lastBuildDate>Fri, 27 Aug 2021 16:35:34 &#43;0800</lastBuildDate><atom:link href="https://1iu2y.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>1872405512@qq.com (zyleo)</webMaster><lastBuildDate>Fri, 27 Aug 2021 23:43:05 &#43;0800</lastBuildDate><atom:link href="https://1iu2y.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>BUUCTF Pwn Fmtstr: jarvisoj_fm</title>
+    <link>https://1iu2y.github.io/posts/2021-08-27-buuctf-pwn-fmtstr/</link>
+    <pubDate>Fri, 27 Aug 2021 23:43:05 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://1iu2y.github.io/posts/2021-08-27-buuctf-pwn-fmtstr/</guid>
+    <description><![CDATA[checksec 结果 1 2 3 4 5 Arch: i386-32-little RELRO: Partial RELRO Stack: Canary found NX: NX enabled PIE: No PIE (0x8048000) IDA分析 IDAimage-20210828140628177 " IDA 很明显，存在格式化字符串漏洞。通过x==4的判断就能够拿到shell，那应该就]]></description>
+</item><item>
     <title>Wsl迁移等操作记录</title>
     <link>https://1iu2y.github.io/posts/2021-08-27-wsl%E8%BF%81%E7%A7%BB%E7%AD%89%E6%93%8D%E4%BD%9C%E8%AE%B0%E5%BD%95/</link>
     <pubDate>Fri, 27 Aug 2021 16:35:34 &#43;0800</pubDate>
@@ -67,12 +74,5 @@
     <author>作者</author>
     <guid>https://1iu2y.github.io/posts/2021-05-31-linux%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BEinode%E4%B8%8E%E8%BD%AF%E9%93%BE%E6%8E%A5%E7%A1%AC%E9%93%BE%E6%8E%A5/</guid>
     <description><![CDATA[前言 最近在看runc最新的CVE-2021-30465漏洞的时候经常看到符号链接(symbolic link)这个概念，脑海中对于这一概念似乎]]></description>
-</item><item>
-    <title>docker-runc(CVE-2019-5736)漏洞分析-第二版</title>
-    <link>https://1iu2y.github.io/posts/2021-04-27-docker-runc-cve-2019-5736-%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90-%E7%AC%AC%E4%BA%8C%E7%89%88/</link>
-    <pubDate>Tue, 27 Apr 2021 16:55:41 &#43;0000</pubDate>
-    <author>作者</author>
-    <guid>https://1iu2y.github.io/posts/2021-04-27-docker-runc-cve-2019-5736-%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90-%E7%AC%AC%E4%BA%8C%E7%89%88/</guid>
-    <description><![CDATA[漏洞背景 runc是一个根据OCI(Open Container Initiative)标准创建并运行容器的命令行工具，docker引擎也是基于runc构建的。2]]></description>
 </item></channel>
 </rss>
