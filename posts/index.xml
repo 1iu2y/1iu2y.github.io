@@ -4,7 +4,14 @@
         <link>https://1iu2y.github.io/posts/</link>
         <description>所有文章 | zyleo&#39;s blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1872405512@qq.com (zyleo)</managingEditor>
-            <webMaster>1872405512@qq.com (zyleo)</webMaster><lastBuildDate>Fri, 27 Aug 2021 23:43:05 &#43;0800</lastBuildDate><atom:link href="https://1iu2y.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>1872405512@qq.com (zyleo)</webMaster><lastBuildDate>Thu, 02 Sep 2021 14:03:58 &#43;0800</lastBuildDate><atom:link href="https://1iu2y.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>2021 09 02 Ret2dlresolve学习记录</title>
+    <link>https://1iu2y.github.io/posts/2021-09-02-ret2dlresolve%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/</link>
+    <pubDate>Thu, 02 Sep 2021 14:03:58 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://1iu2y.github.io/posts/2021-09-02-ret2dlresolve%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/</guid>
+    <description><![CDATA[<p>花了一个上午时间，看了一下ret2dlresolve的基本原理与基本的利用过程。觉得步骤与相关细节要素还是蛮多的，为防止今后某一天再用到的时候忘得干干净净，特此记录一些我个人的理解，加深印象。</p>]]></description>
+</item><item>
     <title>pwn初学者的进阶（一）：格式化字符串</title>
     <link>https://1iu2y.github.io/posts/2021-08-27-buuctf-pwn-fmtstr/</link>
     <pubDate>Fri, 27 Aug 2021 23:43:05 &#43;0800</pubDate>
@@ -67,12 +74,5 @@
     <author>作者</author>
     <guid>https://1iu2y.github.io/posts/2021-06-14-hugo-hello-world/</guid>
     <description><![CDATA[Hello World! 标题测试 二级标题 三级标题 四级标题 五级标题 代码块 1 2 def main(): print(&#34;hello world&#34;) 行内代码块code 表格 test1 retes essetqq eqf24 13 13 36u6 63y4t25 13 edwfd 24 t5y6 数学公式？ 行内公式 $x = y\times z$ 多行公]]></description>
-</item><item>
-    <title>Linux知识回顾：inode与软链接、硬链接</title>
-    <link>https://1iu2y.github.io/posts/2021-05-31-linux%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BEinode%E4%B8%8E%E8%BD%AF%E9%93%BE%E6%8E%A5%E7%A1%AC%E9%93%BE%E6%8E%A5/</link>
-    <pubDate>Mon, 31 May 2021 16:45:32 &#43;0000</pubDate>
-    <author>作者</author>
-    <guid>https://1iu2y.github.io/posts/2021-05-31-linux%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BEinode%E4%B8%8E%E8%BD%AF%E9%93%BE%E6%8E%A5%E7%A1%AC%E9%93%BE%E6%8E%A5/</guid>
-    <description><![CDATA[前言 最近在看runc最新的CVE-2021-30465漏洞的时候经常看到符号链接(symbolic link)这个概念，脑海中对于这一概念似乎]]></description>
 </item></channel>
 </rss>
