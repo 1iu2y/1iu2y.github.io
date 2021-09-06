@@ -4,9 +4,16 @@
         <link>https://1iu2y.github.io/</link>
         <description>zyleo&#39;s blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1872405512@qq.com (zyleo)</managingEditor>
-            <webMaster>1872405512@qq.com (zyleo)</webMaster><lastBuildDate>Thu, 02 Sep 2021 14:03:58 &#43;0800</lastBuildDate>
+            <webMaster>1872405512@qq.com (zyleo)</webMaster><lastBuildDate>Mon, 06 Sep 2021 14:36:30 &#43;0800</lastBuildDate>
             <atom:link href="https://1iu2y.github.io/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>pwn初学者的进阶（三）：堆学习</title>
+    <link>https://1iu2y.github.io/posts/2021-09-06-buuctf%E5%A0%86%E7%9B%B8%E5%85%B3%E8%AE%B0%E5%BD%95/</link>
+    <pubDate>Mon, 06 Sep 2021 14:36:30 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://1iu2y.github.io/posts/2021-09-06-buuctf%E5%A0%86%E7%9B%B8%E5%85%B3%E8%AE%B0%E5%BD%95/</guid>
+    <description><![CDATA[0x00 前言 零零散散地看了两三天时间才把堆的一些基础内容与一道题看懂😑 0x01 picoctf_2018_are you root 题目链接 感天动地，我居然自己做出了一道堆题，虽然这题非常简单。 每次l]]></description>
+</item><item>
     <title>pwn初学者的进阶（二）：ret2dlresolve学习记录</title>
     <link>https://1iu2y.github.io/posts/2021-09-02-ret2dlresolve%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/</link>
     <pubDate>Thu, 02 Sep 2021 14:03:58 &#43;0800</pubDate>
@@ -69,12 +76,5 @@
     <author>作者</author>
     <guid>https://1iu2y.github.io/posts/2021-06-24-win10govscode%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/</guid>
     <description><![CDATA[<p>其实就是想记录一下正确设置<code>GOPROXY</code>的命令</p>]]></description>
-</item><item>
-    <title>hugo: hello world</title>
-    <link>https://1iu2y.github.io/posts/2021-06-14-hugo-hello-world/</link>
-    <pubDate>Mon, 14 Jun 2021 21:09:33 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://1iu2y.github.io/posts/2021-06-14-hugo-hello-world/</guid>
-    <description><![CDATA[Hello World! 标题测试 二级标题 三级标题 四级标题 五级标题 代码块 1 2 def main(): print(&#34;hello world&#34;) 行内代码块code 表格 test1 retes essetqq eqf24 13 13 36u6 63y4t25 13 edwfd 24 t5y6 数学公式？ 行内公式 $x = y\times z$ 多行公]]></description>
 </item></channel>
 </rss>
