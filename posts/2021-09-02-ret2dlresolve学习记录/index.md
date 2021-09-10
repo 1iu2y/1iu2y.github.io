@@ -126,7 +126,7 @@ r.interactive()
 
 ## 参考链接：
 
-- ctf竞赛权威指南(pwn篇) 10.6 ret2dl-resolve
+- 《ctf竞赛权威指南(pwn篇)》--$10.6:ret2dl-resolve
 - [Return-to-dl-resolve](http://pwn4.fun/2016/11/09/Return-to-dl-resolve/) （复现平台：ubuntu16）
 - [CTF Wiki: ret2dlresolve](https://ctf-wiki.org/pwn/linux/user-mode/stackoverflow/x86/advanced-rop/ret2dlresolve/)
 - [[原创]高级栈溢出之ret2dlresolve详解(x86&x64)，附源码分析](https://bbs.pediy.com/thread-266769.htm) （和上两篇博文差不多，但是_dl_runtime_resolve()的执行过程写得很清晰，给作者点个赞）

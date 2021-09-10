@@ -27,7 +27,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/1iu2y.github.io\/posts\/2021-09-06-buuctf%E5%A0%86%E7%9B%B8%E5%85%B3%E8%AE%B0%E5%BD%95\/"
-        },"genre": "posts","keywords": "CTF, pwn, 堆","wordcount":  636 ,
+        },"genre": "posts","keywords": "CTF, pwn, 堆","wordcount":  741 ,
         "url": "https:\/\/1iu2y.github.io\/posts\/2021-09-06-buuctf%E5%A0%86%E7%9B%B8%E5%85%B3%E8%AE%B0%E5%BD%95\/","datePublished": "2021-09-06T14:36:30+08:00","dateModified": "2021-09-06T14:36:30+08:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
@@ -104,7 +104,7 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animated flipInX">pwn初学者的进阶（三）：堆学习</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://github.com/liuliuliuzy" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>zyleo</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/ctf/"><i class="far fa-folder fa-fw"></i>CTF</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-09-06">2021-09-06</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 636 字&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-09-06">2021-09-06</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 741 字&nbsp;
                 <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 2 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  kept="">
                 <div class="details-summary toc-title">
@@ -115,6 +115,7 @@
   <ul>
     <li><a href="#0x00-前言">0x00 前言</a></li>
     <li><a href="#0x01-picoctf_2018_are-you-root">0x01 picoctf_2018_are you root</a></li>
+    <li><a href="#0x02-roarctf_2019_easy_pwn-off_by_onefastbin_attackone_gadgetrealloc">0x02 roarctf_2019_easy_pwn-【off_by_one+fastbin_attack+one_gadget+realloc】</a></li>
   </ul>
 </nav></div>
             </div><div class="content" id="content"><h2 id="0x00-前言">0x00 前言</h2>
@@ -259,6 +260,9 @@ fastbin: -&gt; -----------------
     </a><figcaption class="image-caption">flag截图</figcaption>
     </figure></p>
 <p>ps: <code>#define DWORD __uint32_t</code>，所以<code>DWORD</code>在x86/x64都是<strong>4字节</strong>大小，而不是字面意思的2倍字长。</p>
+<h2 id="0x02-roarctf_2019_easy_pwn-off_by_onefastbin_attackone_gadgetrealloc">0x02 roarctf_2019_easy_pwn-【off_by_one+fastbin_attack+one_gadget+realloc】</h2>
+<p>这题可以算个很典型的off_by_one攻击例子。</p>
+<p>先挖个坑，有时间来填。</p>
 </div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
